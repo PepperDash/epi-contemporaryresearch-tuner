@@ -1,8 +1,5 @@
 C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\epi-stb-contemporaryresearch.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Essentials Devices Common.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\PepperDash_Core.dll
 C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\PepperDash_Essentials_Core.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\PepperDashEssentials.dll
 C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\SimplSharpNewtonsoft.dll
 C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\SimplSharpReflectionInterface.dll
 C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.Lighting.dll

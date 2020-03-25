@@ -11,7 +11,7 @@ namespace epi_stb_contemporaryresearch
 {
     public class Properties
     {
-        public ControlPropertiesConfig Control { get; set; }
+        public EssentialsControlPropertiesConfig Control { get; set; }
 
         public string unitId { get; set; }
     }

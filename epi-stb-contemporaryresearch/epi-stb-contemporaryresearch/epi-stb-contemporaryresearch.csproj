@@ -61,7 +61,7 @@
     </Reference>
     <Reference Include="PepperDash_Essentials_Core, Version=1.4.32.38755, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\essentials-builds\PepperDash_Essentials_Core.dll</HintPath>
+      <HintPath>..\..\essentials-builds\PepperDash_Essentials_Core.dll</HintPath>
     </Reference>
     <Reference Include="SimplSharpCustomAttributesInterface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1099c178b3b54c3b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
