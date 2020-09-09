@@ -20,7 +20,7 @@ using epi_stb_contemporaryresearch.Bridge;
 
 namespace epi_stb_contemporaryresearch
 {
-    public class ContemporaryResearchDevice : ReconfigurableDevice, IBridge, ISetTopBoxControls
+    public class ContemporaryResearchDevice : ReconfigurableDevice, IBridge, ISetTopBoxControls, ICommunicationMonitor
     {
         #region constants
         private const string Attention = ">";
@@ -70,7 +70,7 @@ namespace epi_stb_contemporaryresearch
 
         public IBasicCommunication Communication { get; private set; }
         public CommunicationGather PortGather { get; private set; }
-        public GenericCommunicationMonitor CommunicationMonitor { get; private set; }
+        public StatusMonitorBase CommunicationMonitor { get; private set; }
 
         private string UnitId { get; set; }
 
