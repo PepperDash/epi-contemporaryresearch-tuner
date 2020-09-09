@@ -74,7 +74,24 @@ namespace epi_stb_contemporaryresearch
 
         private string UnitId { get; set; }
 
-        BoolFeedback PowerStatusFeedback { get; set; }
+        public BoolFeedback PowerStatusFeedback { get; set; }
+		public StringFeedback CurrentChannelFB { get; set; }
+		private string _CurrentChannel { get; set; }
+		
+		public string CurrentChannel
+		{
+
+			get
+			{
+				return _CurrentChannel;
+			}
+			set
+			{
+				_CurrentChannel = value;
+				CurrentChannelFB.FireUpdate();
+			}
+
+		}
         private bool _PowerStatus { get; set; }
         private bool PowerStatus
         {
@@ -117,7 +134,7 @@ namespace epi_stb_contemporaryresearch
             UnitId = _props.unitId;
 
             PowerStatusFeedback = new BoolFeedback(() => PowerStatus);
-
+			CurrentChannelFB = new StringFeedback(() => _CurrentChannel);
 
             Communication = comm;
             var socket = comm as ISocketStatus;
@@ -180,10 +197,11 @@ namespace epi_stb_contemporaryresearch
         void Port_LineReceived(object dev, GenericCommMethodReceiveTextArgs args)
         {
             Debug.Console(2, this, "RX : '{0}'", args.Text);
-            var header = string.Format("<{0}T", UnitId);
+            var header = string.Format("<1T");
             if (args.Text.Contains(header))
             {
                 var message = args.Text.Substring(3, 1);
+				Debug.Console(2, this, "Power Message: '{0}'", message);
                 if (message.Equals("U"))
                 {
                     PowerStatus = true;
@@ -192,7 +210,14 @@ namespace epi_stb_contemporaryresearch
                 {
                     PowerStatus = false;
                 }
+				CurrentChannel = args.Text.Substring(4, 3);
+
+				Debug.Console(2, this, "Channel Message: '{0}'", args.Text.Substring(4, 3));
             }
+			else if (args.Text.Contains(">0K") || args.Text.Contains(">0TU") || args.Text.Contains(">0TD"))
+			{
+				Poll();
+			}
         }
 
 

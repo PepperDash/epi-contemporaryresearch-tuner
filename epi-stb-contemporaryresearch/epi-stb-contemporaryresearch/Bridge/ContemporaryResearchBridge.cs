@@ -69,6 +69,11 @@ namespace epi_stb_contemporaryresearch.Bridge
             trilist.SetBoolSigAction(joinMap.Digit9, (b) => stbDevice.Digit9(b));
             trilist.SetBoolSigAction(joinMap.Dash, (b) => stbDevice.Dash(b));
             trilist.SetBoolSigAction(joinMap.KeypadEnter, (b) => stbDevice.KeypadEnter(b));
+
+			stbDevice.CurrentChannelFB.LinkInputSig(trilist.StringInput[joinMap.CurrentChannel]);
+			stbDevice.PowerStatusFeedback.LinkInputSig(trilist.BooleanInput[joinMap.PowerOn]);
+			stbDevice.PowerStatusFeedback.LinkComplementInputSig(trilist.BooleanInput[joinMap.PowerOff]);
+
         }
     }
 }

@@ -77,6 +77,8 @@ namespace epi_stb_contemporaryresearch.Bridge.JoinMap
 
         #region Strings
         public uint Name { get; set; }
+
+		public uint CurrentChannel { get; set; }
         public uint LoadPresets { get; set; }
         public uint KeypadAccessoryButton1Label { get; set; }
         public uint KeypadAccessoryButton2Label { get; set; }
@@ -88,6 +90,8 @@ namespace epi_stb_contemporaryresearch.Bridge.JoinMap
             PowerOn = 1;
             PowerOff = 2;
             PowerToggle = 3;
+
+			
 
             HasDpad = 4;
             Up = 4;
@@ -139,6 +143,7 @@ namespace epi_stb_contemporaryresearch.Bridge.JoinMap
             KeypadAccessoryButton2Press = 43;
 
             Name = 1;
+			CurrentChannel = 2;
             KeypadAccessoryButton1Label = 42;
             KeypadAccessoryButton2Label = 43;
 
