@@ -77,7 +77,10 @@ namespace epi_stb_contemporaryresearch
         public BoolFeedback PowerStatusFeedback { get; set; }
 		public StringFeedback CurrentChannelFB { get; set; }
 		private string _CurrentChannel { get; set; }
-		
+
+
+		private CTimer _SendKeypadTimer;
+		private string _SendKeypadData;
 		public string CurrentChannel
 		{
 
@@ -379,7 +382,7 @@ namespace epi_stb_contemporaryresearch
         public void Down(bool pressRelease)
         {
             if (pressRelease)
-
+				
                 Communication.SendText(BuildCommand(CmdKeyEmu, ParamDn));
         }
 
@@ -436,76 +439,87 @@ namespace epi_stb_contemporaryresearch
 
         #endregion
 
+		public void SendKeypadButton(string key)
+		{
+			_SendKeypadData = _SendKeypadData + key;
+			CurrentChannel = _SendKeypadData;
+			if (_SendKeypadTimer == null)
+			{
+				_SendKeypadTimer = new CTimer(_SendKeypadChannel, 3000);
+			}
+			else
+			{
+				_SendKeypadTimer.Stop();
+				_SendKeypadTimer.Reset(3000);
+			}
+		}
+
+		private void _SendKeypadChannel(object notUsed)
+		{
+			Communication.SendText(BuildCommand(string.Format("TC={0}", _SendKeypadData)));
+			_SendKeypadData = "";
+		}
         #region INumericKeypad Members
 
         public void Digit0(bool pressRelease)
         {
             if (pressRelease)
-
-                Communication.SendText(BuildCommand(CmdKeyEmu, ParamDigit0));
+				SendKeypadButton("0");
+                
         }
 
         public void Digit1(bool pressRelease)
         {
-            if (pressRelease)
-
-                Communication.SendText(BuildCommand(CmdKeyEmu, ParamDigit1));
+			if (pressRelease)
+				SendKeypadButton("1");
         }
 
         public void Digit2(bool pressRelease)
         {
-            if (pressRelease)
-
-                Communication.SendText(BuildCommand(CmdKeyEmu, ParamDigit2));
+			if (pressRelease)
+				SendKeypadButton("2");
         }
 
         public void Digit3(bool pressRelease)
         {
-            if (pressRelease)
-
-                Communication.SendText(BuildCommand(CmdKeyEmu, ParamDigit3));
+			if (pressRelease)
+				SendKeypadButton("3");
         }
 
         public void Digit4(bool pressRelease)
         {
-            if (pressRelease)
-
-                Communication.SendText(BuildCommand(CmdKeyEmu, ParamDigit4));
+			if (pressRelease)
+				SendKeypadButton("4");
         }
 
         public void Digit5(bool pressRelease)
         {
-            if (pressRelease)
-
-                Communication.SendText(BuildCommand(CmdKeyEmu, ParamDigit5));
+			if (pressRelease)
+				SendKeypadButton("5");
         }
 
         public void Digit6(bool pressRelease)
         {
-            if (pressRelease)
-
-                Communication.SendText(BuildCommand(CmdKeyEmu, ParamDigit6));
+			if (pressRelease)
+				SendKeypadButton("6");
         }
 
         public void Digit7(bool pressRelease)
         {
-            if (pressRelease)
-
-                Communication.SendText(BuildCommand(CmdKeyEmu, ParamDigit7));
+			if (pressRelease)
+				SendKeypadButton("7");
         }
 
         public void Digit8(bool pressRelease)
         {
-            if (pressRelease)
-
-                Communication.SendText(BuildCommand(CmdKeyEmu, ParamDigit8));
+			if (pressRelease)
+				SendKeypadButton("8");
         }
 
         public void Digit9(bool pressRelease)
         {
-            if (pressRelease)
-
-                Communication.SendText(BuildCommand(CmdKeyEmu, ParamDigit9));
+			if (pressRelease)
+				SendKeypadButton("9");
         }
 
         public bool HasKeypadAccessoryButton1

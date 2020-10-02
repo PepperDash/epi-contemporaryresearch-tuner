@@ -57,6 +57,19 @@ namespace epi_stb_contemporaryresearch.Bridge
             trilist.SetBoolSigAction(joinMap.Info, (b) => stbDevice.Info(b));
             trilist.SetBoolSigAction(joinMap.Exit, (b) => stbDevice.Exit(b));
 
+
+			trilist.SetSigTrueAction(joinMap.Digit0, () => stbDevice.SendKeypadButton("0"));
+			trilist.SetSigTrueAction(joinMap.Digit1, () => stbDevice.SendKeypadButton("1"));
+			trilist.SetSigTrueAction(joinMap.Digit2, () => stbDevice.SendKeypadButton("2"));
+			trilist.SetSigTrueAction(joinMap.Digit3, () => stbDevice.SendKeypadButton("3"));
+			trilist.SetSigTrueAction(joinMap.Digit4, () => stbDevice.SendKeypadButton("4"));
+			trilist.SetSigTrueAction(joinMap.Digit5, () => stbDevice.SendKeypadButton("5"));
+			trilist.SetSigTrueAction(joinMap.Digit6, () => stbDevice.SendKeypadButton("6"));
+			trilist.SetSigTrueAction(joinMap.Digit7, () => stbDevice.SendKeypadButton("7"));
+			trilist.SetSigTrueAction(joinMap.Digit8, () => stbDevice.SendKeypadButton("8"));
+			trilist.SetSigTrueAction(joinMap.Digit9, () => stbDevice.SendKeypadButton("9"));
+			trilist.SetSigTrueAction(joinMap.Dash, () => stbDevice.SendKeypadButton("-"));
+			/*
             trilist.SetBoolSigAction(joinMap.Digit0, (b) => stbDevice.Digit0(b));
             trilist.SetBoolSigAction(joinMap.Digit1, (b) => stbDevice.Digit1(b));
             trilist.SetBoolSigAction(joinMap.Digit2, (b) => stbDevice.Digit2(b));
@@ -68,6 +81,8 @@ namespace epi_stb_contemporaryresearch.Bridge
             trilist.SetBoolSigAction(joinMap.Digit8, (b) => stbDevice.Digit8(b));
             trilist.SetBoolSigAction(joinMap.Digit9, (b) => stbDevice.Digit9(b));
             trilist.SetBoolSigAction(joinMap.Dash, (b) => stbDevice.Dash(b));
+			 */
+
             trilist.SetBoolSigAction(joinMap.KeypadEnter, (b) => stbDevice.KeypadEnter(b));
 
 			stbDevice.CurrentChannelFB.LinkInputSig(trilist.StringInput[joinMap.CurrentChannel]);
