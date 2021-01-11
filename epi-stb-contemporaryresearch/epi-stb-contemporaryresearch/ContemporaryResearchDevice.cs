@@ -1,26 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Crestron.SimplSharp;
 using PepperDash.Core;
 using PepperDash.Essentials.Core;
-using PepperDash.Essentials.Core.Devices;
-using PepperDash.Essentials.Devices.Common.Codec;
-using PepperDash.Essentials.Devices.Common.DSP;
-using System.Text.RegularExpressions;
-using Crestron.SimplSharp.Reflection;
+using PepperDash.Essentials.Core.Bridges;
 using Newtonsoft.Json;
 using PepperDash.Essentials.Core.Config;
-using PepperDash.Essentials.Bridges;
 using Crestron.SimplSharpPro.DeviceSupport;
-using Crestron.SimplSharpPro.Diagnostics;
-
-using epi_stb_contemporaryresearch.Bridge;
+using epi_stb_contemporaryresearch.Bridge.JoinMap;
 
 namespace epi_stb_contemporaryresearch
 {
-    public class ContemporaryResearchDevice : ReconfigurableDevice, IBridge, ISetTopBoxControls
+    public class ContemporaryResearchDevice : EssentialsBridgeableDevice, ISetTopBoxControls
     {
         #region constants
         private const string Attention = ">";
@@ -92,21 +81,10 @@ namespace epi_stb_contemporaryresearch
 
 
 
-        public static void LoadPlugin()
-        {
-            DeviceFactory.AddFactoryForType("contemporaryresearch", ContemporaryResearchDevice.BuildDevice);
-        }
 
-        public static ContemporaryResearchDevice BuildDevice(DeviceConfig dc)
-        {
-            var comm = CommFactory.CreateCommForDevice(dc);
-            var newMe = new ContemporaryResearchDevice(dc.Key, dc.Name, comm, dc);
-
-            return newMe;
-        }
 
         public ContemporaryResearchDevice(string key, string name, IBasicCommunication comm, DeviceConfig dc)
-            : base(dc)
+            : base(key, name)
         {
             _Dc = dc;
 
@@ -199,9 +177,60 @@ namespace epi_stb_contemporaryresearch
 
         #region IBridge Members
 
-        public void LinkToApi(BasicTriList trilist, uint joinStart, string joinMapKey)
+        public override void LinkToApi(BasicTriList trilist, uint joinStart, string joinMapKey, EiscApiAdvanced bridge)
         {
-            this.LinkToApiExt(trilist, joinStart, joinMapKey);
+            {
+                var joinMap = new ContemporaryResearchJoinMap(joinStart);
+                var joinMapSerialized = JoinMapHelper.GetJoinMapForDevice(joinMapKey);
+
+                if (!string.IsNullOrEmpty(joinMapSerialized))
+                    joinMap = JsonConvert.DeserializeObject<ContemporaryResearchJoinMap>(joinMapSerialized);
+
+                if (bridge != null)
+                {
+                    bridge.AddJoinMap(Key, joinMap);
+                }
+
+                Debug.Console(1, "Linking to Trilist '{0}'", trilist.ID.ToString("X"));
+                Debug.Console(0, "Linking to SetTopBox: {0}", Name);
+
+                CommunicationMonitor.IsOnlineFeedback.LinkInputSig(trilist.BooleanInput[joinMap.HasPresets.JoinNumber]);
+
+
+                trilist.StringInput[joinMap.Name.JoinNumber].StringValue = Name;
+
+                trilist.SetBoolSigAction(joinMap.PowerOn.JoinNumber, PowerOn);
+                trilist.SetBoolSigAction(joinMap.PowerOff.JoinNumber, PowerOff);
+                trilist.SetBoolSigAction(joinMap.PowerToggle.JoinNumber, PowerToggle);
+
+                trilist.SetBoolSigAction(joinMap.Up.JoinNumber, Up);
+                trilist.SetBoolSigAction(joinMap.Down.JoinNumber, Down);
+                trilist.SetBoolSigAction(joinMap.Left.JoinNumber, Left);
+                trilist.SetBoolSigAction(joinMap.Right.JoinNumber, Right);
+                trilist.SetBoolSigAction(joinMap.Select.JoinNumber, Select);
+                trilist.SetBoolSigAction(joinMap.Menu.JoinNumber, Menu);
+                trilist.SetBoolSigAction(joinMap.Exit.JoinNumber, Exit);
+
+                trilist.SetBoolSigAction(joinMap.ChannelUp.JoinNumber, ChannelUp);
+                trilist.SetBoolSigAction(joinMap.ChannelDown.JoinNumber, ChannelDown);
+                trilist.SetBoolSigAction(joinMap.LastChannel.JoinNumber, LastChannel);
+                trilist.SetBoolSigAction(joinMap.Guide.JoinNumber, Guide);
+                trilist.SetBoolSigAction(joinMap.Info.JoinNumber, Info);
+                trilist.SetBoolSigAction(joinMap.Exit.JoinNumber, Exit);
+
+                trilist.SetBoolSigAction(joinMap.Digit0.JoinNumber, Digit0);
+                trilist.SetBoolSigAction(joinMap.Digit1.JoinNumber, Digit1);
+                trilist.SetBoolSigAction(joinMap.Digit2.JoinNumber, Digit2);
+                trilist.SetBoolSigAction(joinMap.Digit3.JoinNumber, Digit3);
+                trilist.SetBoolSigAction(joinMap.Digit4.JoinNumber, Digit4);
+                trilist.SetBoolSigAction(joinMap.Digit5.JoinNumber, Digit5);
+                trilist.SetBoolSigAction(joinMap.Digit6.JoinNumber, Digit6);
+                trilist.SetBoolSigAction(joinMap.Digit7.JoinNumber, Digit7);
+                trilist.SetBoolSigAction(joinMap.Digit8.JoinNumber, Digit8);
+                trilist.SetBoolSigAction(joinMap.Digit9.JoinNumber, Digit9);
+                trilist.SetBoolSigAction(joinMap.Dash.JoinNumber, Dash);
+                trilist.SetBoolSigAction(joinMap.KeypadEnter.JoinNumber, KeypadEnter);
+            }
         }
 
         #endregion
