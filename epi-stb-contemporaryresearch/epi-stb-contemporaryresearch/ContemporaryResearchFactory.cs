@@ -9,14 +9,14 @@ namespace epi_stb_contemporaryresearch
     {
         public ContemporaryResearchFactory()
         {
-            MinimumEssentialsFrameworkVersion = "1.6.7";
+            MinimumEssentialsFrameworkVersion = "1.7.6";
 
             TypeNames = new List<string> { "contemporaryresearch" };
         }
 
         public override EssentialsDevice BuildDevice(DeviceConfig dc)
         {
-            Debug.Console(1, "Factory Attempting to create new Wattbox Device");
+            Debug.Console(1, "Factory Attempting to create new Contemporary Research device");
 
             var comms = CommFactory.CreateCommForDevice(dc);
 

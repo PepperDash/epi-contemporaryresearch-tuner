@@ -78,11 +78,6 @@ namespace epi_stb_contemporaryresearch
             }
         }
 
-
-
-
-
-
         public ContemporaryResearchDevice(string key, string name, IBasicCommunication comm, DeviceConfig dc)
             : base(key, name)
         {
@@ -604,6 +599,16 @@ namespace epi_stb_contemporaryresearch
         }
 
         #endregion
-    }
+
+		#region ISetTopBoxControls Members
+
+
+		public PepperDash.Essentials.Core.Presets.DevicePresetsModel TvPresets
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		#endregion
+	}
 }
 
