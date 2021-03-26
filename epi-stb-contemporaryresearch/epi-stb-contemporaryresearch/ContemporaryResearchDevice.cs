@@ -83,15 +83,13 @@ namespace epi_stb_contemporaryresearch
         {
             _Dc = dc;
 
-
             _props = JsonConvert.DeserializeObject<Properties>(dc.Properties.ToString());
             Debug.Console(0, this, "Made it to device constructor");
 
             UnitId = _props.unitId;
 
             PowerStatusFeedback = new BoolFeedback(() => PowerStatus);
-
-
+			
             Communication = comm;
             var socket = comm as ISocketStatus;
             if (socket != null)
@@ -106,34 +104,35 @@ namespace epi_stb_contemporaryresearch
 
             PortGather = new CommunicationGather(Communication, "\x0A");
             PortGather.LineReceived += this.Port_LineReceived;
-
-
+			
             // Custom monitoring, will check the heartbeat tracker count every 20s and reset. Heartbeat sbould be coming in every 20s if subscriptions are valid
             CommunicationMonitor = new GenericCommunicationMonitor(this, Communication, 20000, 120000, 300000, Poll);
             DeviceManager.AddDevice(CommunicationMonitor);
-
-
-        }
+		}
 
         public override bool CustomActivate()
         {
-            Communication.Connect();
+			// Essentials will handle the connect method to the device
+			Communication.Connect();
+			// Essentials will handle starting the comms monitor
             CommunicationMonitor.Start();
-            return true;
+			
+			return base.CustomActivate();
+			//return true;
         }
-
-
 
         private string BuildCommand(string command, string parameter)
         {
             var cmd = string.Format("{0}{1}{2}{3}\x0D", Attention, UnitId, command, parameter);
-            Debug.Console(2, this, "TX : '{0}' ", cmd);
+            //Debug.Console(2, this, "TX : '{0}' ", cmd);
             return cmd;
         }
 
         private string BuildCommand(string command)
         {
-            return string.Format("{0}{1}{2}\x0D", Attention, UnitId, command);
+			var cmd = string.Format("{0}{1}{2}\x0D", Attention, UnitId, command);
+			//Debug.Console(2, this, "TX : '{0}'", cmd);
+			return cmd;
         }
 
         void socket_ConnectionChange(object sender, GenericSocketStatusChageEventArgs e)
@@ -167,8 +166,7 @@ namespace epi_stb_contemporaryresearch
                 }
             }
         }
-
-
+		
 
         #region IBridge Members
 
@@ -176,22 +174,23 @@ namespace epi_stb_contemporaryresearch
         {
             {
                 var joinMap = new ContemporaryResearchJoinMap(joinStart);
-                var joinMapSerialized = JoinMapHelper.GetJoinMapForDevice(joinMapKey);
+				// This adds the join map to the collection on the bridge
+				if (bridge != null)
+				{
+					bridge.AddJoinMap(Key, joinMap);
+				}
 
-                if (!string.IsNullOrEmpty(joinMapSerialized))
-                    joinMap = JsonConvert.DeserializeObject<ContemporaryResearchJoinMap>(joinMapSerialized);
+				var joinMapSerialized = JoinMapHelper.TryGetJoinMapAdvancedForDevice(joinMapKey);
+				if (joinMapSerialized != null)
+				{
+					joinMap.SetCustomJoinData(joinMapSerialized);
+				}	
+				
+                Debug.Console(1, this, "Linking to Trilist '{0}'", trilist.ID.ToString("X"));
+				Debug.Console(0, this, "Linking to SetTopBox: {0}", Name);
 
-                if (bridge != null)
-                {
-                    bridge.AddJoinMap(Key, joinMap);
-                }
-
-                Debug.Console(1, "Linking to Trilist '{0}'", trilist.ID.ToString("X"));
-                Debug.Console(0, "Linking to SetTopBox: {0}", Name);
-
-                CommunicationMonitor.IsOnlineFeedback.LinkInputSig(trilist.BooleanInput[joinMap.HasPresets.JoinNumber]);
-
-
+                CommunicationMonitor.IsOnlineFeedback.LinkInputSig(trilist.BooleanInput[joinMap.IsOnline.JoinNumber]);
+	
                 trilist.StringInput[joinMap.Name.JoinNumber].StringValue = Name;
 
                 trilist.SetBoolSigAction(joinMap.PowerOn.JoinNumber, PowerOn);
@@ -284,9 +283,9 @@ namespace epi_stb_contemporaryresearch
 
         public void ChannelUp(bool pressRelease)
         {
-            if (pressRelease)
+			if (pressRelease)
 
-                Communication.SendText(BuildCommand(CmdChanUp));
+				Communication.SendText(BuildCommand(CmdChanUp));
         }
 
         public void Exit(bool pressRelease)
