@@ -1,25 +1,3 @@
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\epi-stb-contemporaryresearch.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\SimplSharpNewtonsoft.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\SimplSharpReflectionInterface.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.Lighting.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\SimplSharpSQLHelperInterface.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\PepperDash_Essentials_DM.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.Fusion.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.Shades.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.EthernetCommunications.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.DeviceSupport.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.UI.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\SimplSharpTimerEventInterface.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.Gateways.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.GeneralIO.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.DM.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\obj\Release\ResolveAssemblyReference.cache
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\obj\Release\epi-stb-contemporaryresearch.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Essentials Devices Common.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\PepperDash_Core.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\PepperDashEssentials.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.Remotes.dll
-C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.ThreeSeriesCards.dll
 C:\Crestron\Framework\PepperDash\Essentials - EPI\stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\epi-stb-contemporaryresearch.dll
 C:\Crestron\Framework\PepperDash\Essentials - EPI\stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\PepperDash_Essentials_Core.dll
 C:\Crestron\Framework\PepperDash\Essentials - EPI\stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.Fusion.dll
@@ -33,3 +11,26 @@ C:\Crestron\Framework\PepperDash\Essentials - EPI\stb-contemporaryresearch\epi-s
 C:\Crestron\Framework\PepperDash\Essentials - EPI\stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.GeneralIO.dll
 C:\Crestron\Framework\PepperDash\Essentials - EPI\stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\obj\Release\ResolveAssemblyReference.cache
 C:\Crestron\Framework\PepperDash\Essentials - EPI\stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\obj\Release\epi-stb-contemporaryresearch.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\epi-stb-contemporaryresearch.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Essentials Devices Common.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\PepperDash_Core.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\PepperDash_Essentials_Core.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\PepperDashEssentials.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\SimplSharpNewtonsoft.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\SimplSharpReflectionInterface.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.Lighting.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\SimplSharpSQLHelperInterface.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\PepperDash_Essentials_DM.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.Fusion.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.Shades.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.Remotes.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.EthernetCommunications.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.ThreeSeriesCards.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.DeviceSupport.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.UI.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\SimplSharpTimerEventInterface.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.Gateways.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.GeneralIO.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\bin\Release\Crestron.SimplSharpPro.DM.dll
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\obj\Release\ResolveAssemblyReference.cache
+C:\Development\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\epi-stb-contemporaryresearch\obj\Release\epi-stb-contemporaryresearch.dll
