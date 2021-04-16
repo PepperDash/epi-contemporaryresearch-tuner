@@ -1,5 +1,7 @@
-﻿MainAssembly=epi-stb-contemporaryresearch.dll:da3b9812bb31a0abff207270eb01921e
+﻿MainAssembly=epi-stb-contemporaryresearch.dll:fe74674cce5360e2cd837ce7ede9edd1
 MainAssemblyMinFirmwareVersion=1.009.0029
+MainAssemblyResource=SimplSharpData.dat:820b61c48c8a2cace82957eed4cc377c
+MainAssemblyResource=SimplSharpData.dat.der:bf862965c00f3e6ec535e4e00e82d30c
 MainAssemblyResource=SimplSharpData.dat:820b61c48c8a2cace82957eed4cc377c
 MainAssemblyResource=SimplSharpData.dat.der:bf862965c00f3e6ec535e4e00e82d30c
 ü
