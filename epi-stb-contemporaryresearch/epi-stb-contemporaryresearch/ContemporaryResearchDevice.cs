@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using PepperDash.Core;
 using PepperDash.Essentials.Core;
 using PepperDash.Essentials.Core.Bridges;
@@ -6,10 +7,11 @@ using Newtonsoft.Json;
 using PepperDash.Essentials.Core.Config;
 using Crestron.SimplSharpPro.DeviceSupport;
 using epi_stb_contemporaryresearch.Bridge.JoinMap;
+using PepperDash.Essentials.Core.DeviceInfo;
 
 namespace epi_stb_contemporaryresearch
 {
-    public class ContemporaryResearchDevice : EssentialsBridgeableDevice, ISetTopBoxControls
+    public class ContemporaryResearchDevice : EssentialsBridgeableDevice, ISetTopBoxControls, IDeviceInfoProvider
     {
         #region constants
         private const string Attention = ">";
@@ -27,6 +29,10 @@ namespace epi_stb_contemporaryresearch
         private const string CmdKeyEmu = "KK";
 
         private const string CmdPoll = "ST";
+
+        private const string CmdPollIp = "IP";
+
+        private const string CmdPollInfo = "ID";
 
         private const string ParamDigit0 = "=10";
         private const string ParamDigit1 = "=11";
@@ -53,7 +59,7 @@ namespace epi_stb_contemporaryresearch
 
         #endregion
 
-        DeviceConfig _Dc;
+        DeviceConfig _dc;
 
         private Properties _props;
 
@@ -61,7 +67,15 @@ namespace epi_stb_contemporaryresearch
         public CommunicationGather PortGather { get; private set; }
         public GenericCommunicationMonitor CommunicationMonitor { get; private set; }
 
+        public StringFeedback MakeFeedback { get; private set; }
+        public StringFeedback ModelFeedback { get; private set; } 
+
+        public readonly Dictionary<string, Action<string>> StringParse;
+
         private string UnitId { get; set; }
+
+        public const string Make = "Contemporary Research";
+        public string Model { get; private set; }
 
         BoolFeedback PowerStatusFeedback { get; set; }
         private bool _PowerStatus { get; set; }
@@ -81,7 +95,7 @@ namespace epi_stb_contemporaryresearch
         public ContemporaryResearchDevice(string key, string name, IBasicCommunication comm, DeviceConfig dc)
             : base(key, name)
         {
-            _Dc = dc;
+            _dc = dc;
 
             _props = JsonConvert.DeserializeObject<Properties>(dc.Properties.ToString());
             Debug.Console(0, this, "Made it to device constructor");
@@ -89,18 +103,21 @@ namespace epi_stb_contemporaryresearch
             UnitId = _props.unitId;
 
             PowerStatusFeedback = new BoolFeedback(() => PowerStatus);
+            MakeFeedback = new StringFeedback(() => Make);
+            ModelFeedback = new StringFeedback(() => Model);
+
+            StringParse = new Dictionary<string, Action<string>>
+            {
+                {string.Format("<{0}T", UnitId), ParseStatusResponse},
+                {string.Format("<{0}IP", UnitId), ParseNetworkResponse},
+                {string.Format("<{0}ID", UnitId), ParseDeviceInfoResponse},
+            };
 			
             Communication = comm;
             var socket = comm as ISocketStatus;
             if (socket != null)
-            {
-                // This instance uses IP control
-                socket.ConnectionChange += new EventHandler<GenericSocketStatusChageEventArgs>(socket_ConnectionChange);
-            }
-            else
-            {
-                // This instance uses RS-232 control
-            }
+                socket.ConnectionChange += socket_ConnectionChange;
+            
 
             PortGather = new CommunicationGather(Communication, "\x0A");
             PortGather.LineReceived += this.Port_LineReceived;
@@ -151,20 +168,68 @@ namespace epi_stb_contemporaryresearch
 
         void Port_LineReceived(object dev, GenericCommMethodReceiveTextArgs args)
         {
-            Debug.Console(2, this, "RX : '{0}'", args.Text);
-            var header = string.Format("<{0}T", UnitId);
-            if (args.Text.Contains(header))
+            Action<string> newAction;
+            var data = args.Text;
+            Debug.Console(2, this, "RX : '{0}'", data);
+            if (StringParse.TryGetValue(data.Substring(0, 4), out newAction))
             {
-                var message = args.Text.Substring(3, 1);
-                if (message.Equals("U"))
+                newAction.Invoke(data);
+                return;
+            }
+            if (StringParse.TryGetValue(data.Substring(0, 3), out newAction))
+                newAction.Invoke(data);
+        }
+
+        private void ParseStatusResponse(string data)
+        {
+            var dataToLower = data.ToLower();
+            Communication.SendText(BuildCommand(CmdPollIp));
+            PowerStatus = dataToLower[3] == 'u';
+        }
+
+        private void ParseNetworkResponse(string data)
+        {
+            Communication.SendText(BuildCommand(CmdPollInfo));
+            var dataChunks = data.Split(' ');
+            var mac = string.Empty;
+            var ipa = string.Empty;
+            while (string.IsNullOrEmpty(mac) && string.IsNullOrEmpty(ipa))
+            {
+                foreach (var item in dataChunks)
                 {
-                    PowerStatus = true;
-                }
-                else if (message.Equals("M"))
-                {
-                    PowerStatus = false;
+                    if (item.ToUpper().Contains("MAC"))
+                    {
+                        mac = item.Substring(item.IndexOf('=') + 1);
+                    }
+                    if (!item.ToUpper().Contains("IP")) continue;
+                    var tempIpa = item.Substring(item.IndexOf('=') + 1);
+                    ipa = tempIpa.Remove(ipa.Length - 1, 1);
                 }
             }
+            if (DeviceInfo == null) DeviceInfo = new DeviceInfo();
+            DeviceInfo.MacAddress = string.IsNullOrEmpty(DeviceInfo.MacAddress) ? mac : DeviceInfo.MacAddress;
+            DeviceInfo.IpAddress = string.IsNullOrEmpty(DeviceInfo.IpAddress) ? ipa : DeviceInfo.IpAddress;
+            OnDeviceInfoChanged();
+        }
+
+        private void ParseDeviceInfoResponse(string data)
+        {
+            var infoString = data.Remove(4, data.Length - 4);
+            var infoChunks = infoString.Split(' ');
+            Model = infoChunks[0];
+            ModelFeedback.FireUpdate();
+            MakeFeedback.FireUpdate();
+            if (infoChunks.Length <= 1) return;
+            if (DeviceInfo == null) DeviceInfo = new DeviceInfo();
+            DeviceInfo.FirmwareVersion = string.IsNullOrEmpty(DeviceInfo.FirmwareVersion) ? infoChunks[1] : DeviceInfo.FirmwareVersion;
+            OnDeviceInfoChanged();
+        }
+
+        void OnDeviceInfoChanged()
+        {
+            var handler = DeviceInfoChanged;
+            if (handler == null) return;
+            handler.Invoke(this, (new DeviceInfoEventArgs(DeviceInfo)));
         }
 		
 
@@ -608,6 +673,19 @@ namespace epi_stb_contemporaryresearch
 		}
 
 		#endregion
-	}
+
+        #region IDeviceInfoProvider Members
+
+        public DeviceInfo DeviceInfo { get; private set; }
+
+        public event DeviceInfoChangeHandler DeviceInfoChanged;
+
+        public void UpdateDeviceInfo()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+    }
 }
 
