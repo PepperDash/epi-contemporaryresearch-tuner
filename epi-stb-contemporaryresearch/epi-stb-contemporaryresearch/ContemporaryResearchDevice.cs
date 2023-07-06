@@ -56,7 +56,7 @@ namespace epi_stb_contemporaryresearch
         private const string ParamDpEnter = "=110";
         private const string ParamExit = "=111";
 
-
+        
         #endregion
 
         DeviceConfig _dc;
@@ -66,6 +66,8 @@ namespace epi_stb_contemporaryresearch
         public IBasicCommunication Communication { get; private set; }
         public CommunicationGather PortGather { get; private set; }
         public GenericCommunicationMonitor CommunicationMonitor { get; private set; }
+
+        public BoolFeedback IsOnlineFeedback { get; private set; }
 
         public StringFeedback MakeFeedback { get; private set; }
         public StringFeedback ModelFeedback { get; private set; } 
@@ -124,7 +126,11 @@ namespace epi_stb_contemporaryresearch
 			
             // Custom monitoring, will check the heartbeat tracker count every 20s and reset. Heartbeat sbould be coming in every 20s if subscriptions are valid
             CommunicationMonitor = new GenericCommunicationMonitor(this, Communication, 20000, 120000, 300000, Poll);
+
+            IsOnlineFeedback = CommunicationMonitor.IsOnlineFeedback;
+
             DeviceManager.AddDevice(CommunicationMonitor);
+
 		}
 
         public override bool CustomActivate()
