@@ -1,0 +1,923 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETFramework,Version=v4.7.2": {
+      "BouncyCastle/1.8.9": {
+        "type": "package",
+        "compile": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        },
+        "runtime": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        }
+      },
+      "Crestron.SimplSharp.SDK.Library/2.20.66": {
+        "type": "package",
+        "compile": {
+          "lib/net47/SimplSharpAutoUpdateInterface.dll": {},
+          "lib/net47/SimplSharpCWSHelperInterface.dll": {},
+          "lib/net47/SimplSharpCloudClientInterface.dll": {},
+          "lib/net47/SimplSharpCryptographyInterface.dll": {},
+          "lib/net47/SimplSharpCustomAttributesInterface.dll": {},
+          "lib/net47/SimplSharpExchangeWebServices.dll": {},
+          "lib/net47/SimplSharpHelperInterface.dll": {},
+          "lib/net47/SimplSharpNewtonsoft.dll": {},
+          "lib/net47/SimplSharpOnvifInterface.dll": {},
+          "lib/net47/SimplSharpProgrammingInterfaces.dll": {},
+          "lib/net47/SimplSharpReflectionInterface.dll": {},
+          "lib/net47/SimplSharpSQLHelperInterface.dll": {},
+          "lib/net47/SimplSharpTimerEventInterface.dll": {}
+        },
+        "runtime": {
+          "lib/net47/SimplSharpAutoUpdateInterface.dll": {},
+          "lib/net47/SimplSharpCWSHelperInterface.dll": {},
+          "lib/net47/SimplSharpCloudClientInterface.dll": {},
+          "lib/net47/SimplSharpCryptographyInterface.dll": {},
+          "lib/net47/SimplSharpCustomAttributesInterface.dll": {},
+          "lib/net47/SimplSharpExchangeWebServices.dll": {},
+          "lib/net47/SimplSharpHelperInterface.dll": {},
+          "lib/net47/SimplSharpNewtonsoft.dll": {},
+          "lib/net47/SimplSharpOnvifInterface.dll": {},
+          "lib/net47/SimplSharpProgrammingInterfaces.dll": {},
+          "lib/net47/SimplSharpReflectionInterface.dll": {},
+          "lib/net47/SimplSharpSQLHelperInterface.dll": {},
+          "lib/net47/SimplSharpTimerEventInterface.dll": {}
+        },
+        "build": {
+          "build/_._": {}
+        }
+      },
+      "Crestron.SimplSharp.SDK.Program/2.20.66": {
+        "type": "package",
+        "dependencies": {
+          "Crestron.SimplSharp.SDK.ProgramLibrary": "[2.20.66]"
+        },
+        "build": {
+          "build/_._": {}
+        }
+      },
+      "Crestron.SimplSharp.SDK.ProgramLibrary/2.20.66": {
+        "type": "package",
+        "dependencies": {
+          "Crestron.SimplSharp.SDK.Library": "[2.20.66]"
+        },
+        "compile": {
+          "lib/net47/Crestron.SimplSharpPro.AudioDistribution.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.CrestronConnected.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.DM.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.DeviceSupport.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.EthernetCommunications.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.Fusion.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.Gateways.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.GeneralIO.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.Keypads.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.Lighting.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.Media.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.Remotes.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.Shades.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.Thermostats.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.ThreeSeriesCards.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.UC.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.UI.dll": {},
+          "lib/net47/SimplSharpPro.exe": {}
+        },
+        "runtime": {
+          "lib/net47/Crestron.SimplSharpPro.AudioDistribution.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.CrestronConnected.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.DM.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.DeviceSupport.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.EthernetCommunications.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.Fusion.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.Gateways.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.GeneralIO.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.Keypads.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.Lighting.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.Media.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.Remotes.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.Shades.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.Thermostats.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.ThreeSeriesCards.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.UC.dll": {},
+          "lib/net47/Crestron.SimplSharpPro.UI.dll": {},
+          "lib/net47/SimplSharpPro.exe": {}
+        },
+        "build": {
+          "build/_._": {}
+        }
+      },
+      "PepperDash.Essentials.Core/2.0.0-beta-2559": {
+        "type": "package",
+        "dependencies": {
+          "Crestron.SimplSharp.SDK.ProgramLibrary": "2.20.66",
+          "PepperDashCore": "2.0.0-alpha-424"
+        },
+        "compile": {
+          "lib/net472/PepperDash_Essentials_Core.dll": {}
+        },
+        "runtime": {
+          "lib/net472/PepperDash_Essentials_Core.dll": {}
+        }
+      },
+      "PepperDash.Essentials.Devices.Common/2.0.0-beta-2559": {
+        "type": "package",
+        "dependencies": {
+          "Crestron.SimplSharp.SDK.ProgramLibrary": "2.20.66",
+          "PepperDash.Essentials.Core": "2.0.0-beta-2559",
+          "PepperDashCore": "2.0.0-alpha-424"
+        },
+        "compile": {
+          "lib/net472/Essentials Devices Common.dll": {}
+        },
+        "runtime": {
+          "lib/net472/Essentials Devices Common.dll": {}
+        }
+      },
+      "PepperDashCore/2.0.0-alpha-424": {
+        "type": "package",
+        "dependencies": {
+          "BouncyCastle": "1.8.9",
+          "Crestron.SimplSharp.SDK.Library": "2.20.66",
+          "Serilog": "3.1.1",
+          "Serilog.Expressions": "4.0.0",
+          "Serilog.Formatting.Compact": "2.0.0",
+          "Serilog.Sinks.Console": "5.0.1",
+          "Serilog.Sinks.File": "5.0.0",
+          "WebSocketSharp": "1.0.3-rc11"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "System.Data.DataSetExtensions",
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net472/PepperDashCore.dll": {}
+        },
+        "runtime": {
+          "lib/net472/PepperDashCore.dll": {}
+        }
+      },
+      "PepperDashEssentials/2.0.0-beta-2559": {
+        "type": "package",
+        "dependencies": {
+          "Crestron.SimplSharp.SDK.Program": "2.20.66",
+          "PepperDash.Essentials.Core": "2.0.0-beta-2559",
+          "PepperDash.Essentials.Devices.Common": "2.0.0-beta-2559",
+          "PepperDashCore": "2.0.0-alpha-424"
+        },
+        "compile": {
+          "lib/net472/PepperDashEssentials.dll": {}
+        },
+        "runtime": {
+          "lib/net472/PepperDashEssentials.dll": {}
+        }
+      },
+      "Serilog/3.1.1": {
+        "type": "package",
+        "dependencies": {
+          "System.Diagnostics.DiagnosticSource": "7.0.2"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net471/Serilog.dll": {}
+        },
+        "runtime": {
+          "lib/net471/Serilog.dll": {}
+        }
+      },
+      "Serilog.Expressions/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Serilog": "3.1.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Serilog.Expressions.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Serilog.Expressions.dll": {}
+        }
+      },
+      "Serilog.Formatting.Compact/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Serilog": "3.1.0"
+        },
+        "compile": {
+          "lib/net471/Serilog.Formatting.Compact.dll": {}
+        },
+        "runtime": {
+          "lib/net471/Serilog.Formatting.Compact.dll": {}
+        }
+      },
+      "Serilog.Sinks.Console/5.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Serilog": "3.1.1"
+        },
+        "compile": {
+          "lib/net471/Serilog.Sinks.Console.dll": {}
+        },
+        "runtime": {
+          "lib/net471/Serilog.Sinks.Console.dll": {}
+        }
+      },
+      "Serilog.Sinks.File/5.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Serilog": "2.10.0"
+        },
+        "compile": {
+          "lib/net45/Serilog.Sinks.File.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Serilog.Sinks.File.dll": {}
+        }
+      },
+      "System.Buffers/4.5.1": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "mscorlib"
+        ],
+        "compile": {
+          "ref/net45/System.Buffers.dll": {}
+        },
+        "runtime": {
+          "lib/net461/System.Buffers.dll": {}
+        }
+      },
+      "System.Diagnostics.DiagnosticSource/7.0.2": {
+        "type": "package",
+        "dependencies": {
+          "System.Memory": "4.5.5",
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        },
+        "compile": {
+          "lib/net462/System.Diagnostics.DiagnosticSource.dll": {}
+        },
+        "runtime": {
+          "lib/net462/System.Diagnostics.DiagnosticSource.dll": {}
+        },
+        "build": {
+          "buildTransitive/net462/_._": {}
+        }
+      },
+      "System.Memory/4.5.5": {
+        "type": "package",
+        "dependencies": {
+          "System.Buffers": "4.5.1",
+          "System.Numerics.Vectors": "4.5.0",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.3"
+        },
+        "frameworkAssemblies": [
+          "System",
+          "mscorlib"
+        ],
+        "compile": {
+          "lib/net461/System.Memory.dll": {}
+        },
+        "runtime": {
+          "lib/net461/System.Memory.dll": {}
+        }
+      },
+      "System.Numerics.Vectors/4.5.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Numerics",
+          "mscorlib"
+        ],
+        "compile": {
+          "ref/net46/System.Numerics.Vectors.dll": {}
+        },
+        "runtime": {
+          "lib/net46/System.Numerics.Vectors.dll": {}
+        }
+      },
+      "System.Runtime.CompilerServices.Unsafe/6.0.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "mscorlib"
+        ],
+        "compile": {
+          "lib/net461/System.Runtime.CompilerServices.Unsafe.dll": {}
+        },
+        "runtime": {
+          "lib/net461/System.Runtime.CompilerServices.Unsafe.dll": {}
+        }
+      },
+      "WebSocketSharp/1.0.3-rc11": {
+        "type": "package",
+        "compile": {
+          "lib/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/websocket-sharp.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BouncyCastle/1.8.9": {
+      "sha512": "axnBgvdD5n+FnEG6efk/tfKuMFru7R/EoISH9zjh319yb3HD24TEHSAbNN/lTRT2ulOGRxDgOsCjkuk08iwWPg==",
+      "type": "package",
+      "path": "bouncycastle/1.8.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "bouncycastle.1.8.9.nupkg.sha512",
+        "bouncycastle.nuspec",
+        "lib/BouncyCastle.Crypto.dll"
+      ]
+    },
+    "Crestron.SimplSharp.SDK.Library/2.20.66": {
+      "sha512": "/jwtXQPtrxUQn/7kT+6QsumoNkLqJFkSGo4knZLkjHpVREKXe5DQITg9pnuzoW7z62/XgoZlNVxV4GR6/HVaQA==",
+      "type": "package",
+      "path": "crestron.simplsharp.sdk.library/2.20.66",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "License.txt",
+        "build/Crestron.SimplSharp.SDK.Library.targets",
+        "build/CrestronOnvif.dll",
+        "build/SimplSharpData.dat",
+        "build/SimplSharpData.dat.der",
+        "build/SimplSharpDataEx.dat",
+        "crestron.simplsharp.sdk.library.2.20.66.nupkg.sha512",
+        "crestron.simplsharp.sdk.library.nuspec",
+        "images/crestron_logo_nuget.jpg",
+        "lib/net47/SimplSharpAutoUpdateInterface.dll",
+        "lib/net47/SimplSharpAutoUpdateInterface.xml",
+        "lib/net47/SimplSharpCWSHelperInterface.dll",
+        "lib/net47/SimplSharpCWSHelperInterface.xml",
+        "lib/net47/SimplSharpCloudClientInterface.dll",
+        "lib/net47/SimplSharpCloudClientInterface.xml",
+        "lib/net47/SimplSharpCryptographyInterface.dll",
+        "lib/net47/SimplSharpCryptographyInterface.xml",
+        "lib/net47/SimplSharpCustomAttributesInterface.dll",
+        "lib/net47/SimplSharpCustomAttributesInterface.xml",
+        "lib/net47/SimplSharpExchangeWebServices.dll",
+        "lib/net47/SimplSharpExchangeWebServices.xml",
+        "lib/net47/SimplSharpHelperInterface.dll",
+        "lib/net47/SimplSharpHelperInterface.xml",
+        "lib/net47/SimplSharpNewtonsoft.dll",
+        "lib/net47/SimplSharpNewtonsoft.xml",
+        "lib/net47/SimplSharpOnvifInterface.dll",
+        "lib/net47/SimplSharpOnvifInterface.xml",
+        "lib/net47/SimplSharpProgrammingInterfaces.dll",
+        "lib/net47/SimplSharpProgrammingInterfaces.xml",
+        "lib/net47/SimplSharpReflectionInterface.dll",
+        "lib/net47/SimplSharpReflectionInterface.xml",
+        "lib/net47/SimplSharpSQLHelperInterface.dll",
+        "lib/net47/SimplSharpSQLHelperInterface.xml",
+        "lib/net47/SimplSharpTimerEventInterface.dll",
+        "lib/net47/SimplSharpTimerEventInterface.xml",
+        "lib/net6.0/SimplSharpAutoUpdateInterface.dll",
+        "lib/net6.0/SimplSharpAutoUpdateInterface.xml",
+        "lib/net6.0/SimplSharpCWSHelperInterface.dll",
+        "lib/net6.0/SimplSharpCWSHelperInterface.xml",
+        "lib/net6.0/SimplSharpCloudClientInterface.dll",
+        "lib/net6.0/SimplSharpCloudClientInterface.xml",
+        "lib/net6.0/SimplSharpCryptographyInterface.dll",
+        "lib/net6.0/SimplSharpCryptographyInterface.xml",
+        "lib/net6.0/SimplSharpCustomAttributesInterface.dll",
+        "lib/net6.0/SimplSharpCustomAttributesInterface.xml",
+        "lib/net6.0/SimplSharpHelperInterface.dll",
+        "lib/net6.0/SimplSharpHelperInterface.xml",
+        "lib/net6.0/SimplSharpNewtonsoft.dll",
+        "lib/net6.0/SimplSharpNewtonsoft.xml",
+        "lib/net6.0/SimplSharpOnvifInterface.dll",
+        "lib/net6.0/SimplSharpOnvifInterface.xml",
+        "lib/net6.0/SimplSharpProgrammingInterfaces.dll",
+        "lib/net6.0/SimplSharpProgrammingInterfaces.xml",
+        "lib/net6.0/SimplSharpReflectionInterface.dll",
+        "lib/net6.0/SimplSharpReflectionInterface.xml",
+        "lib/net6.0/SimplSharpSQLHelperInterface.dll",
+        "lib/net6.0/SimplSharpSQLHelperInterface.xml",
+        "lib/net6.0/SimplSharpTimerEventInterface.dll",
+        "lib/net6.0/SimplSharpTimerEventInterface.xml"
+      ]
+    },
+    "Crestron.SimplSharp.SDK.Program/2.20.66": {
+      "sha512": "D8o3D+WVpuxOuSevxMHrAAV8C0EQUIvKNQkSztJuMiR3eRAorqSRUPJDrXMqkLeeWy+OhzBzZ2Ojo/ZaDzXQSw==",
+      "type": "package",
+      "path": "crestron.simplsharp.sdk.program/2.20.66",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "License.txt",
+        "build/Crestron.SimplSharp.SDK.Program.targets",
+        "build/CrestronOnvif.dll",
+        "build/SimplSharpData.dat",
+        "build/SimplSharpData.dat.der",
+        "build/SimplSharpDataEx.dat",
+        "content/ControlSystem.cs.pp",
+        "contentFiles/any/net6.0/SimplSharpPro.deps.json",
+        "contentFiles/any/net6.0/SimplSharpPro.runtimeconfig.json",
+        "crestron.simplsharp.sdk.program.2.20.66.nupkg.sha512",
+        "crestron.simplsharp.sdk.program.nuspec",
+        "images/crestron_logo_nuget.jpg"
+      ]
+    },
+    "Crestron.SimplSharp.SDK.ProgramLibrary/2.20.66": {
+      "sha512": "kTVhSFXv9V+nRnriuFGZ/KBhnN+kg6wIT9BHw5ETgHskW+iq9Grd+iOuHSWMtdX/mcRsKVWlArG5tz8knHr/7g==",
+      "type": "package",
+      "path": "crestron.simplsharp.sdk.programlibrary/2.20.66",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "License.txt",
+        "build/Crestron.SimplSharp.SDK.ProgramLibrary.targets",
+        "build/CrestronOnvif.dll",
+        "build/SimplSharpData.dat",
+        "build/SimplSharpData.dat.der",
+        "build/SimplSharpDataEx.dat",
+        "crestron.simplsharp.sdk.programlibrary.2.20.66.nupkg.sha512",
+        "crestron.simplsharp.sdk.programlibrary.nuspec",
+        "images/crestron_logo_nuget.jpg",
+        "lib/net47/Crestron.SimplSharpPro.AudioDistribution.dll",
+        "lib/net47/Crestron.SimplSharpPro.AudioDistribution.xml",
+        "lib/net47/Crestron.SimplSharpPro.CrestronConnected.dll",
+        "lib/net47/Crestron.SimplSharpPro.CrestronConnected.xml",
+        "lib/net47/Crestron.SimplSharpPro.DM.dll",
+        "lib/net47/Crestron.SimplSharpPro.DM.xml",
+        "lib/net47/Crestron.SimplSharpPro.DeviceSupport.dll",
+        "lib/net47/Crestron.SimplSharpPro.DeviceSupport.xml",
+        "lib/net47/Crestron.SimplSharpPro.EthernetCommunications.dll",
+        "lib/net47/Crestron.SimplSharpPro.EthernetCommunications.xml",
+        "lib/net47/Crestron.SimplSharpPro.Fusion.dll",
+        "lib/net47/Crestron.SimplSharpPro.Fusion.xml",
+        "lib/net47/Crestron.SimplSharpPro.Gateways.dll",
+        "lib/net47/Crestron.SimplSharpPro.Gateways.xml",
+        "lib/net47/Crestron.SimplSharpPro.GeneralIO.dll",
+        "lib/net47/Crestron.SimplSharpPro.GeneralIO.xml",
+        "lib/net47/Crestron.SimplSharpPro.Keypads.dll",
+        "lib/net47/Crestron.SimplSharpPro.Keypads.xml",
+        "lib/net47/Crestron.SimplSharpPro.Lighting.dll",
+        "lib/net47/Crestron.SimplSharpPro.Lighting.xml",
+        "lib/net47/Crestron.SimplSharpPro.Media.dll",
+        "lib/net47/Crestron.SimplSharpPro.Media.xml",
+        "lib/net47/Crestron.SimplSharpPro.Remotes.dll",
+        "lib/net47/Crestron.SimplSharpPro.Remotes.xml",
+        "lib/net47/Crestron.SimplSharpPro.Shades.dll",
+        "lib/net47/Crestron.SimplSharpPro.Shades.xml",
+        "lib/net47/Crestron.SimplSharpPro.Thermostats.dll",
+        "lib/net47/Crestron.SimplSharpPro.Thermostats.xml",
+        "lib/net47/Crestron.SimplSharpPro.ThreeSeriesCards.dll",
+        "lib/net47/Crestron.SimplSharpPro.ThreeSeriesCards.xml",
+        "lib/net47/Crestron.SimplSharpPro.UC.dll",
+        "lib/net47/Crestron.SimplSharpPro.UC.xml",
+        "lib/net47/Crestron.SimplSharpPro.UI.dll",
+        "lib/net47/Crestron.SimplSharpPro.UI.xml",
+        "lib/net47/SimplSharpPro.exe",
+        "lib/net47/SimplSharpPro.xml",
+        "lib/net6.0/Crestron.SimplSharpPro.AudioDistribution.dll",
+        "lib/net6.0/Crestron.SimplSharpPro.AudioDistribution.xml",
+        "lib/net6.0/Crestron.SimplSharpPro.CrestronConnected.dll",
+        "lib/net6.0/Crestron.SimplSharpPro.CrestronConnected.xml",
+        "lib/net6.0/Crestron.SimplSharpPro.DM.dll",
+        "lib/net6.0/Crestron.SimplSharpPro.DM.xml",
+        "lib/net6.0/Crestron.SimplSharpPro.DeviceSupport.dll",
+        "lib/net6.0/Crestron.SimplSharpPro.DeviceSupport.xml",
+        "lib/net6.0/Crestron.SimplSharpPro.EthernetCommunications.dll",
+        "lib/net6.0/Crestron.SimplSharpPro.EthernetCommunications.xml",
+        "lib/net6.0/Crestron.SimplSharpPro.Fusion.dll",
+        "lib/net6.0/Crestron.SimplSharpPro.Fusion.xml",
+        "lib/net6.0/Crestron.SimplSharpPro.Gateways.dll",
+        "lib/net6.0/Crestron.SimplSharpPro.Gateways.xml",
+        "lib/net6.0/Crestron.SimplSharpPro.GeneralIO.dll",
+        "lib/net6.0/Crestron.SimplSharpPro.GeneralIO.xml",
+        "lib/net6.0/Crestron.SimplSharpPro.Keypads.dll",
+        "lib/net6.0/Crestron.SimplSharpPro.Keypads.xml",
+        "lib/net6.0/Crestron.SimplSharpPro.Lighting.dll",
+        "lib/net6.0/Crestron.SimplSharpPro.Lighting.xml",
+        "lib/net6.0/Crestron.SimplSharpPro.Media.dll",
+        "lib/net6.0/Crestron.SimplSharpPro.Media.xml",
+        "lib/net6.0/Crestron.SimplSharpPro.Remotes.dll",
+        "lib/net6.0/Crestron.SimplSharpPro.Remotes.xml",
+        "lib/net6.0/Crestron.SimplSharpPro.Shades.dll",
+        "lib/net6.0/Crestron.SimplSharpPro.Shades.xml",
+        "lib/net6.0/Crestron.SimplSharpPro.Thermostats.dll",
+        "lib/net6.0/Crestron.SimplSharpPro.Thermostats.xml",
+        "lib/net6.0/Crestron.SimplSharpPro.ThreeSeriesCards.dll",
+        "lib/net6.0/Crestron.SimplSharpPro.ThreeSeriesCards.xml",
+        "lib/net6.0/Crestron.SimplSharpPro.UC.dll",
+        "lib/net6.0/Crestron.SimplSharpPro.UC.xml",
+        "lib/net6.0/Crestron.SimplSharpPro.UI.dll",
+        "lib/net6.0/Crestron.SimplSharpPro.UI.xml",
+        "lib/net6.0/SimplSharpPro.dll",
+        "lib/net6.0/SimplSharpPro.xml"
+      ]
+    },
+    "PepperDash.Essentials.Core/2.0.0-beta-2559": {
+      "sha512": "9OEUJQ2y5I/BTp0DeEmDqWzW0dogH2P2spFytOkSB4v1tjFAyPdJJSfAU1lynBBkpNxs5wYVLiQ11IpEs0GHSA==",
+      "type": "package",
+      "path": "pepperdash.essentials.core/2.0.0-beta-2559",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "README.md",
+        "lib/net472/PepperDash_Essentials_Core.dll",
+        "lib/net6.0/PepperDash_Essentials_Core.dll",
+        "pepperdash.essentials.core.2.0.0-beta-2559.nupkg.sha512",
+        "pepperdash.essentials.core.nuspec"
+      ]
+    },
+    "PepperDash.Essentials.Devices.Common/2.0.0-beta-2559": {
+      "sha512": "wI6MyhFTrJfyWGRba2CT9k/G6px39BYNxJx6JHYm2tgA6AMRKZ6POOKN4h54VmdjFDRims+JbPRUMnkjcL5RPA==",
+      "type": "package",
+      "path": "pepperdash.essentials.devices.common/2.0.0-beta-2559",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "README.md",
+        "lib/net472/Essentials Devices Common.dll",
+        "lib/net6.0/Essentials Devices Common.dll",
+        "pepperdash.essentials.devices.common.2.0.0-beta-2559.nupkg.sha512",
+        "pepperdash.essentials.devices.common.nuspec"
+      ]
+    },
+    "PepperDashCore/2.0.0-alpha-424": {
+      "sha512": "vHcO4bdDri4fEeS3M83MJTbGRwTvYCvVQ2zMlYrUDbevaT2y+EgI4kk7c9LSdwm4ksJ8IF71IB5D4qoyDLpUMw==",
+      "type": "package",
+      "path": "pepperdashcore/2.0.0-alpha-424",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net472/PepperDashCore.dll",
+        "lib/net6.0/PepperDashCore.dll",
+        "pepperdashcore.2.0.0-alpha-424.nupkg.sha512",
+        "pepperdashcore.nuspec"
+      ]
+    },
+    "PepperDashEssentials/2.0.0-beta-2559": {
+      "sha512": "LUkiGAEAfcIwNCRE2HpeswBLX/d4ktwzgmYJAGqWGpsF4Jaju/SRBh2cSH8Ob5EizCwdobRKJW6xfUR2RUsj5w==",
+      "type": "package",
+      "path": "pepperdashessentials/2.0.0-beta-2559",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "README.md",
+        "lib/net472/PepperDashEssentials.dll",
+        "lib/net6.0/PepperDashEssentials.dll",
+        "pepperdashessentials.2.0.0-beta-2559.nupkg.sha512",
+        "pepperdashessentials.nuspec"
+      ]
+    },
+    "Serilog/3.1.1": {
+      "sha512": "P6G4/4Kt9bT635bhuwdXlJ2SCqqn2nhh4gqFqQueCOr9bK/e7W9ll/IoX1Ter948cV2Z/5+5v8pAfJYUISY03A==",
+      "type": "package",
+      "path": "serilog/3.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "icon.png",
+        "lib/net462/Serilog.dll",
+        "lib/net462/Serilog.xml",
+        "lib/net471/Serilog.dll",
+        "lib/net471/Serilog.xml",
+        "lib/net5.0/Serilog.dll",
+        "lib/net5.0/Serilog.xml",
+        "lib/net6.0/Serilog.dll",
+        "lib/net6.0/Serilog.xml",
+        "lib/net7.0/Serilog.dll",
+        "lib/net7.0/Serilog.xml",
+        "lib/netstandard2.0/Serilog.dll",
+        "lib/netstandard2.0/Serilog.xml",
+        "lib/netstandard2.1/Serilog.dll",
+        "lib/netstandard2.1/Serilog.xml",
+        "serilog.3.1.1.nupkg.sha512",
+        "serilog.nuspec"
+      ]
+    },
+    "Serilog.Expressions/4.0.0": {
+      "sha512": "dsC8GtalMDXMzywA60fHeBvqAjQ1EM75zSrdA7j7TxJfmrfss6BOxzgoT5thqjY+icLNbovUsC5KTYRlXzCpXg==",
+      "type": "package",
+      "path": "serilog.expressions/4.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "icon.png",
+        "lib/net5.0/Serilog.Expressions.dll",
+        "lib/net5.0/Serilog.Expressions.xml",
+        "lib/net6.0/Serilog.Expressions.dll",
+        "lib/net6.0/Serilog.Expressions.xml",
+        "lib/net7.0/Serilog.Expressions.dll",
+        "lib/net7.0/Serilog.Expressions.xml",
+        "lib/netstandard2.0/Serilog.Expressions.dll",
+        "lib/netstandard2.0/Serilog.Expressions.xml",
+        "lib/netstandard2.1/Serilog.Expressions.dll",
+        "lib/netstandard2.1/Serilog.Expressions.xml",
+        "serilog.expressions.4.0.0.nupkg.sha512",
+        "serilog.expressions.nuspec"
+      ]
+    },
+    "Serilog.Formatting.Compact/2.0.0": {
+      "sha512": "ob6z3ikzFM3D1xalhFuBIK1IOWf+XrQq+H4KeH4VqBcPpNcmUgZlRQ2h3Q7wvthpdZBBoY86qZOI2LCXNaLlNA==",
+      "type": "package",
+      "path": "serilog.formatting.compact/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net462/Serilog.Formatting.Compact.dll",
+        "lib/net462/Serilog.Formatting.Compact.xml",
+        "lib/net471/Serilog.Formatting.Compact.dll",
+        "lib/net471/Serilog.Formatting.Compact.xml",
+        "lib/net6.0/Serilog.Formatting.Compact.dll",
+        "lib/net6.0/Serilog.Formatting.Compact.xml",
+        "lib/net7.0/Serilog.Formatting.Compact.dll",
+        "lib/net7.0/Serilog.Formatting.Compact.xml",
+        "lib/netstandard2.0/Serilog.Formatting.Compact.dll",
+        "lib/netstandard2.0/Serilog.Formatting.Compact.xml",
+        "lib/netstandard2.1/Serilog.Formatting.Compact.dll",
+        "lib/netstandard2.1/Serilog.Formatting.Compact.xml",
+        "serilog-extension-nuget.png",
+        "serilog.formatting.compact.2.0.0.nupkg.sha512",
+        "serilog.formatting.compact.nuspec"
+      ]
+    },
+    "Serilog.Sinks.Console/5.0.1": {
+      "sha512": "6Jt8jl9y2ey8VV7nVEUAyjjyxjAQuvd5+qj4XYAT9CwcsvR70HHULGBeD+K2WCALFXf7CFsNQT4lON6qXcu2AA==",
+      "type": "package",
+      "path": "serilog.sinks.console/5.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "icon.png",
+        "lib/net462/Serilog.Sinks.Console.dll",
+        "lib/net462/Serilog.Sinks.Console.xml",
+        "lib/net471/Serilog.Sinks.Console.dll",
+        "lib/net471/Serilog.Sinks.Console.xml",
+        "lib/net5.0/Serilog.Sinks.Console.dll",
+        "lib/net5.0/Serilog.Sinks.Console.xml",
+        "lib/net6.0/Serilog.Sinks.Console.dll",
+        "lib/net6.0/Serilog.Sinks.Console.xml",
+        "lib/net7.0/Serilog.Sinks.Console.dll",
+        "lib/net7.0/Serilog.Sinks.Console.xml",
+        "lib/netstandard2.0/Serilog.Sinks.Console.dll",
+        "lib/netstandard2.0/Serilog.Sinks.Console.xml",
+        "lib/netstandard2.1/Serilog.Sinks.Console.dll",
+        "lib/netstandard2.1/Serilog.Sinks.Console.xml",
+        "serilog.sinks.console.5.0.1.nupkg.sha512",
+        "serilog.sinks.console.nuspec"
+      ]
+    },
+    "Serilog.Sinks.File/5.0.0": {
+      "sha512": "uwV5hdhWPwUH1szhO8PJpFiahqXmzPzJT/sOijH/kFgUx+cyoDTMM8MHD0adw9+Iem6itoibbUXHYslzXsLEAg==",
+      "type": "package",
+      "path": "serilog.sinks.file/5.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "images/icon.png",
+        "lib/net45/Serilog.Sinks.File.dll",
+        "lib/net45/Serilog.Sinks.File.pdb",
+        "lib/net45/Serilog.Sinks.File.xml",
+        "lib/net5.0/Serilog.Sinks.File.dll",
+        "lib/net5.0/Serilog.Sinks.File.pdb",
+        "lib/net5.0/Serilog.Sinks.File.xml",
+        "lib/netstandard1.3/Serilog.Sinks.File.dll",
+        "lib/netstandard1.3/Serilog.Sinks.File.pdb",
+        "lib/netstandard1.3/Serilog.Sinks.File.xml",
+        "lib/netstandard2.0/Serilog.Sinks.File.dll",
+        "lib/netstandard2.0/Serilog.Sinks.File.pdb",
+        "lib/netstandard2.0/Serilog.Sinks.File.xml",
+        "lib/netstandard2.1/Serilog.Sinks.File.dll",
+        "lib/netstandard2.1/Serilog.Sinks.File.pdb",
+        "lib/netstandard2.1/Serilog.Sinks.File.xml",
+        "serilog.sinks.file.5.0.0.nupkg.sha512",
+        "serilog.sinks.file.nuspec"
+      ]
+    },
+    "System.Buffers/4.5.1": {
+      "sha512": "Rw7ijyl1qqRS0YQD/WycNst8hUUMgrMH4FCn1nNm27M4VxchZ1js3fVjQaANHO5f3sN4isvP4a+Met9Y4YomAg==",
+      "type": "package",
+      "path": "system.buffers/4.5.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Buffers.dll",
+        "lib/net461/System.Buffers.xml",
+        "lib/netcoreapp2.0/_._",
+        "lib/netstandard1.1/System.Buffers.dll",
+        "lib/netstandard1.1/System.Buffers.xml",
+        "lib/netstandard2.0/System.Buffers.dll",
+        "lib/netstandard2.0/System.Buffers.xml",
+        "lib/uap10.0.16299/_._",
+        "ref/net45/System.Buffers.dll",
+        "ref/net45/System.Buffers.xml",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard1.1/System.Buffers.dll",
+        "ref/netstandard1.1/System.Buffers.xml",
+        "ref/netstandard2.0/System.Buffers.dll",
+        "ref/netstandard2.0/System.Buffers.xml",
+        "ref/uap10.0.16299/_._",
+        "system.buffers.4.5.1.nupkg.sha512",
+        "system.buffers.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Diagnostics.DiagnosticSource/7.0.2": {
+      "sha512": "hYr3I9N9811e0Bjf2WNwAGGyTuAFbbTgX1RPLt/3Wbm68x3IGcX5Cl75CMmgT6WlNwLQ2tCCWfqYPpypjaf2xA==",
+      "type": "package",
+      "path": "system.diagnostics.diagnosticsource/7.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Diagnostics.DiagnosticSource.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Diagnostics.DiagnosticSource.targets",
+        "lib/net462/System.Diagnostics.DiagnosticSource.dll",
+        "lib/net462/System.Diagnostics.DiagnosticSource.xml",
+        "lib/net6.0/System.Diagnostics.DiagnosticSource.dll",
+        "lib/net6.0/System.Diagnostics.DiagnosticSource.xml",
+        "lib/net7.0/System.Diagnostics.DiagnosticSource.dll",
+        "lib/net7.0/System.Diagnostics.DiagnosticSource.xml",
+        "lib/netstandard2.0/System.Diagnostics.DiagnosticSource.dll",
+        "lib/netstandard2.0/System.Diagnostics.DiagnosticSource.xml",
+        "system.diagnostics.diagnosticsource.7.0.2.nupkg.sha512",
+        "system.diagnostics.diagnosticsource.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Memory/4.5.5": {
+      "sha512": "XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw==",
+      "type": "package",
+      "path": "system.memory/4.5.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Memory.dll",
+        "lib/net461/System.Memory.xml",
+        "lib/netcoreapp2.1/_._",
+        "lib/netstandard1.1/System.Memory.dll",
+        "lib/netstandard1.1/System.Memory.xml",
+        "lib/netstandard2.0/System.Memory.dll",
+        "lib/netstandard2.0/System.Memory.xml",
+        "ref/netcoreapp2.1/_._",
+        "system.memory.4.5.5.nupkg.sha512",
+        "system.memory.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Numerics.Vectors/4.5.0": {
+      "sha512": "QQTlPTl06J/iiDbJCiepZ4H//BVraReU4O4EoRw1U02H5TLUIT7xn3GnDp9AXPSlJUDyFs4uWjWafNX6WrAojQ==",
+      "type": "package",
+      "path": "system.numerics.vectors/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net46/System.Numerics.Vectors.dll",
+        "lib/net46/System.Numerics.Vectors.xml",
+        "lib/netcoreapp2.0/_._",
+        "lib/netstandard1.0/System.Numerics.Vectors.dll",
+        "lib/netstandard1.0/System.Numerics.Vectors.xml",
+        "lib/netstandard2.0/System.Numerics.Vectors.dll",
+        "lib/netstandard2.0/System.Numerics.Vectors.xml",
+        "lib/portable-net45+win8+wp8+wpa81/System.Numerics.Vectors.dll",
+        "lib/portable-net45+win8+wp8+wpa81/System.Numerics.Vectors.xml",
+        "lib/uap10.0.16299/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net45/System.Numerics.Vectors.dll",
+        "ref/net45/System.Numerics.Vectors.xml",
+        "ref/net46/System.Numerics.Vectors.dll",
+        "ref/net46/System.Numerics.Vectors.xml",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard1.0/System.Numerics.Vectors.dll",
+        "ref/netstandard1.0/System.Numerics.Vectors.xml",
+        "ref/netstandard2.0/System.Numerics.Vectors.dll",
+        "ref/netstandard2.0/System.Numerics.Vectors.xml",
+        "ref/uap10.0.16299/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.numerics.vectors.4.5.0.nupkg.sha512",
+        "system.numerics.vectors.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Runtime.CompilerServices.Unsafe/6.0.0": {
+      "sha512": "/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
+      "type": "package",
+      "path": "system.runtime.compilerservices.unsafe/6.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.targets",
+        "buildTransitive/netcoreapp3.1/_._",
+        "lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/net461/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/net6.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netcoreapp3.1/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netcoreapp3.1/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+        "system.runtime.compilerservices.unsafe.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "WebSocketSharp/1.0.3-rc11": {
+      "sha512": "7VCF7f7zVMOvLGD8LeGS4DVXc8lOcB6kXnUMeTxigu+PMiU+6wW5Olq2gYrDU8vDRKOwFY+5RyBaLyzb8skEzA==",
+      "type": "package",
+      "path": "websocketsharp/1.0.3-rc11",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/websocket-sharp.dll",
+        "lib/websocket-sharp.xml",
+        "websocketsharp.1.0.3-rc11.nupkg.sha512",
+        "websocketsharp.nuspec"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETFramework,Version=v4.7.2": [
+      "PepperDashEssentials >= 2.0.0-beta-2559"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\andrew\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0-local",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\andrew\\PDT\\Essentials Plugins\\epi-contemporaryresearch-tuner\\src\\epi-stb-contemporaryresearch.4series.csproj",
+      "projectName": "Pepperdash.Essentials.Plugins.Stb.ContemporaryResearch",
+      "projectPath": "C:\\Users\\andrew\\PDT\\Essentials Plugins\\epi-contemporaryresearch-tuner\\src\\epi-stb-contemporaryresearch.4series.csproj",
+      "packagesPath": "C:\\Users\\andrew\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\andrew\\PDT\\Essentials Plugins\\epi-contemporaryresearch-tuner\\src\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\andrew\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net472"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {},
+        "https://nuget.pkg.github.com/pepperdash-engineering/index.json": {},
+        "https://nuget.pkg.github.com/pepperdash-services/index.json": {},
+        "https://nuget.pkg.github.com/pepperdash/index.json": {}
+      },
+      "frameworks": {
+        "net472": {
+          "targetAlias": "net472",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net472": {
+        "targetAlias": "net472",
+        "dependencies": {
+          "PepperDashEssentials": {
+            "target": "Package",
+            "version": "[2.0.0-beta-2559, )"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "epi-stb-contemporaryresearch", "src\epi-stb-contemporaryresearch.csproj", "{9967AEB3-B2E0-49AB-ADD8-CF16BEC09CFF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9967AEB3-B2E0-49AB-ADD8-CF16BEC09CFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9967AEB3-B2E0-49AB-ADD8-CF16BEC09CFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9967AEB3-B2E0-49AB-ADD8-CF16BEC09CFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9967AEB3-B2E0-49AB-ADD8-CF16BEC09CFF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

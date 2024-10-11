@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "dgSpecHash": "hHinCEYqn1sD4Pkc9R93sGdIDxHEfNOg81c+nHoqzUCcBnvnDv+65ZwDnm3+9h3mMrjKBX4dlNLzar+evTOw0g==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\andrew\\PDT\\Essentials Plugins\\epi-contemporaryresearch-tuner\\src\\epi-stb-contemporaryresearch.4series.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\andrew\\.nuget\\packages\\bouncycastle\\1.8.9\\bouncycastle.1.8.9.nupkg.sha512",
+    "C:\\Users\\andrew\\.nuget\\packages\\crestron.simplsharp.sdk.library\\2.20.66\\crestron.simplsharp.sdk.library.2.20.66.nupkg.sha512",
+    "C:\\Users\\andrew\\.nuget\\packages\\crestron.simplsharp.sdk.program\\2.20.66\\crestron.simplsharp.sdk.program.2.20.66.nupkg.sha512",
+    "C:\\Users\\andrew\\.nuget\\packages\\crestron.simplsharp.sdk.programlibrary\\2.20.66\\crestron.simplsharp.sdk.programlibrary.2.20.66.nupkg.sha512",
+    "C:\\Users\\andrew\\.nuget\\packages\\pepperdash.essentials.core\\2.0.0-beta-2559\\pepperdash.essentials.core.2.0.0-beta-2559.nupkg.sha512",
+    "C:\\Users\\andrew\\.nuget\\packages\\pepperdash.essentials.devices.common\\2.0.0-beta-2559\\pepperdash.essentials.devices.common.2.0.0-beta-2559.nupkg.sha512",
+    "C:\\Users\\andrew\\.nuget\\packages\\pepperdashcore\\2.0.0-alpha-424\\pepperdashcore.2.0.0-alpha-424.nupkg.sha512",
+    "C:\\Users\\andrew\\.nuget\\packages\\pepperdashessentials\\2.0.0-beta-2559\\pepperdashessentials.2.0.0-beta-2559.nupkg.sha512",
+    "C:\\Users\\andrew\\.nuget\\packages\\serilog\\3.1.1\\serilog.3.1.1.nupkg.sha512",
+    "C:\\Users\\andrew\\.nuget\\packages\\serilog.expressions\\4.0.0\\serilog.expressions.4.0.0.nupkg.sha512",
+    "C:\\Users\\andrew\\.nuget\\packages\\serilog.formatting.compact\\2.0.0\\serilog.formatting.compact.2.0.0.nupkg.sha512",
+    "C:\\Users\\andrew\\.nuget\\packages\\serilog.sinks.console\\5.0.1\\serilog.sinks.console.5.0.1.nupkg.sha512",
+    "C:\\Users\\andrew\\.nuget\\packages\\serilog.sinks.file\\5.0.0\\serilog.sinks.file.5.0.0.nupkg.sha512",
+    "C:\\Users\\andrew\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\andrew\\.nuget\\packages\\system.diagnostics.diagnosticsource\\7.0.2\\system.diagnostics.diagnosticsource.7.0.2.nupkg.sha512",
+    "C:\\Users\\andrew\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
+    "C:\\Users\\andrew\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\andrew\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\andrew\\.nuget\\packages\\websocketsharp\\1.0.3-rc11\\websocketsharp.1.0.3-rc11.nupkg.sha512"
+  ],
+  "logs": []
+}

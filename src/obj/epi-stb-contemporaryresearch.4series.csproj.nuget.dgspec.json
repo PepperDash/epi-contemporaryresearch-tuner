@@ -1,0 +1,56 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\andrew\\PDT\\Essentials Plugins\\epi-contemporaryresearch-tuner\\src\\epi-stb-contemporaryresearch.4series.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\andrew\\PDT\\Essentials Plugins\\epi-contemporaryresearch-tuner\\src\\epi-stb-contemporaryresearch.4series.csproj": {
+      "version": "1.0.0-local",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\andrew\\PDT\\Essentials Plugins\\epi-contemporaryresearch-tuner\\src\\epi-stb-contemporaryresearch.4series.csproj",
+        "projectName": "Pepperdash.Essentials.Plugins.Stb.ContemporaryResearch",
+        "projectPath": "C:\\Users\\andrew\\PDT\\Essentials Plugins\\epi-contemporaryresearch-tuner\\src\\epi-stb-contemporaryresearch.4series.csproj",
+        "packagesPath": "C:\\Users\\andrew\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\andrew\\PDT\\Essentials Plugins\\epi-contemporaryresearch-tuner\\src\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\andrew\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.pkg.github.com/pepperdash-engineering/index.json": {},
+          "https://nuget.pkg.github.com/pepperdash-services/index.json": {},
+          "https://nuget.pkg.github.com/pepperdash/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "targetAlias": "net472",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net472": {
+          "targetAlias": "net472",
+          "dependencies": {
+            "PepperDashEssentials": {
+              "target": "Package",
+              "version": "[2.0.0-beta-2559, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

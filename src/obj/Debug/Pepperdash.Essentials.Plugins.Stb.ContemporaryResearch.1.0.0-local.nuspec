@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Pepperdash.Essentials.Plugins.Stb.ContemporaryResearch</id>
+    <version>1.0.0-local</version>
+    <authors>PepperDash Technologies</authors>
+    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <readme>README.md</readme>
+    <projectUrl>https://github.com/PepperDash/epi-contemporaryresearch-tuner</projectUrl>
+    <description>This software is a plugin designed to work as a part of PepperDash Essentials for Crestron control processors. This plugin allows for control of Contemporary Researcy tuners.</description>
+    <copyright>Copyright 2024</copyright>
+    <tags>crestron 4series contemporary research tuner</tags>
+    <repository type="git" url="https://github.com/PepperDash/epi-contemporaryresearch-tuner.git" />
+    <dependencies>
+      <group targetFramework=".NETFramework4.7.2">
+        <dependency id="PepperDashEssentials" version="2.0.0-beta-2559" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\andrew\PDT\Essentials Plugins\epi-contemporaryresearch-tuner\src\4Series\bin\Debug\net472\epi-stb-contemporaryresearch.4series.dll" target="lib\net472\epi-stb-contemporaryresearch.4series.dll" />
+    <file src="C:\Users\andrew\PDT\Essentials Plugins\epi-contemporaryresearch-tuner\LICENSE.md" target="LICENSE.md" />
+    <file src="C:\Users\andrew\PDT\Essentials Plugins\epi-contemporaryresearch-tuner\README.md" target="README.md" />
+  </files>
+</package>
