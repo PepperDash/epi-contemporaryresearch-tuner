@@ -8,10 +8,14 @@ using PepperDash.Essentials.Core.Config;
 using Crestron.SimplSharpPro.DeviceSupport;
 using epi_stb_contemporaryresearch.Bridge.JoinMap;
 using PepperDash.Essentials.Core.DeviceInfo;
+using PepperDash.Essentials.Core.DeviceTypeInterfaces;
+using PepperDash.Essentials.Core.Presets;
+using Serilog.Events;
 
 namespace epi_stb_contemporaryresearch
 {
-    public class ContemporaryResearchDevice : EssentialsBridgeableDevice, ICommunicationMonitor, ISetTopBoxControls, IDeviceInfoProvider
+    public class ContemporaryResearchDevice : EssentialsBridgeableDevice, ICommunicationMonitor, ISetTopBoxControls, IDeviceInfoProvider, ITvPresetsProvider
+
     {
         #region constants
         private const string Attention = ">";
@@ -325,11 +329,6 @@ namespace epi_stb_contemporaryresearch
         public bool HasPresets
         {
             get { throw new NotImplementedException(); }
-        }
-
-        public void LoadPresets(string filePath)
-        {
-            throw new NotImplementedException();
         }
 
         public PepperDash.Essentials.Core.Presets.DevicePresetsModel PresetsModel
@@ -673,12 +672,20 @@ namespace epi_stb_contemporaryresearch
 		#region ISetTopBoxControls Members
 
 
-		public PepperDash.Essentials.Core.Presets.DevicePresetsModel TvPresets
-		{
-			get { throw new NotImplementedException(); }
-		}
+        public DevicePresetsModel TvPresets { get; private set; }
+        public void LoadPresets(string filePath)
+        {
+            TvPresets = new DevicePresetsModel(Key + "-presets", this, filePath);
+            
+            DeviceManager.AddDevice(TvPresets);
 
-		#endregion
+            foreach (var item in TvPresets.PresetsList)
+            {
+                Debug.LogMessage(LogEventLevel.Information, this, "Preset Name = {0}", item.Name);
+            }
+        }
+
+        #endregion
 
         #region IDeviceInfoProvider Members
 

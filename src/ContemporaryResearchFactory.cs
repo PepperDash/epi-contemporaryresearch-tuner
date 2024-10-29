@@ -19,8 +19,13 @@ namespace epi_stb_contemporaryresearch
             Debug.Console(1, "Factory Attempting to create new Contemporary Research device");
 
             var comms = CommFactory.CreateCommForDevice(dc);
+            var device = new ContemporaryResearchDevice(dc.Key, dc.Name, comms, dc);
 
-            return new ContemporaryResearchDevice(dc.Key, dc.Name, comms, dc);
+            var listName = dc.Properties.Value<string>("presetsList");
+            if (listName != null)
+                device.LoadPresets(listName);
+
+            return device;
         }
     }
 }

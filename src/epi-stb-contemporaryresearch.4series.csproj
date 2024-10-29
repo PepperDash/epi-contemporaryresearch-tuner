@@ -1,5 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+	<PropertyGroup>
+		<ProjectType>ProgramLibrary</ProjectType>
+	</PropertyGroup>
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
         <RootNamespace>Pepperdash.Essentials.Plugins.Stb.ContemporaryResearch</RootNamespace>
