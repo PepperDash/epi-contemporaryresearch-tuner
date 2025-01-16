@@ -14,7 +14,7 @@ using Serilog.Events;
 
 namespace epi_stb_contemporaryresearch
 {
-    public class ContemporaryResearchDevice : EssentialsBridgeableDevice, ICommunicationMonitor, ISetTopBoxControls, IDeviceInfoProvider, ITvPresetsProvider
+    public class ContemporaryResearchDevice : EssentialsBridgeableDevice, ICommunicationMonitor, ISetTopBoxControls, IDeviceInfoProvider, ITvPresetsProvider, IRoutingSource
 
     {
         #region constants
