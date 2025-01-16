@@ -11,7 +11,7 @@ using PepperDash.Essentials.Core.DeviceInfo;
 
 namespace epi_stb_contemporaryresearch
 {
-    public class ContemporaryResearchDevice : EssentialsBridgeableDevice, ICommunicationMonitor, ISetTopBoxControls, IDeviceInfoProvider
+    public class ContemporaryResearchDevice : EssentialsBridgeableDevice, ICommunicationMonitor, ISetTopBoxControls, IDeviceInfoProvider, IRoutingSource
     {
         #region constants
         private const string Attention = ">";
@@ -131,6 +131,8 @@ namespace epi_stb_contemporaryresearch
 
             DeviceManager.AddDevice(CommunicationMonitor);
 
+            AnyOut = new RoutingOutputPort(RoutingPortNames.AnyOut, eRoutingSignalType.Audio | eRoutingSignalType.Video, eRoutingPortConnectionType.None, null, this);
+            OutputPorts = new RoutingPortCollection<RoutingOutputPort> { AnyOut };
 		}
 
         public override bool CustomActivate()
@@ -684,6 +686,7 @@ namespace epi_stb_contemporaryresearch
 
         public DeviceInfo DeviceInfo { get; private set; }
 
+
         public event DeviceInfoChangeHandler DeviceInfoChanged;
 
         public void UpdateDeviceInfo()
@@ -691,6 +694,15 @@ namespace epi_stb_contemporaryresearch
             throw new NotImplementedException();
         }
 
+        #endregion
+
+        #region IRoutingSource Members
+
+        #region IRoutingOutputs Members
+        public RoutingOutputPort AnyOut { get; private set; }
+        public RoutingPortCollection<RoutingOutputPort> OutputPorts { get; private set; }
+
+        #endregion
         #endregion
     }
 }
