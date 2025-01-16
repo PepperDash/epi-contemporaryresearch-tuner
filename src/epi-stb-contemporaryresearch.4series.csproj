@@ -20,6 +20,10 @@
         <PackageTags>crestron 4series contemporary research tuner</PackageTags>
     </PropertyGroup>
 
+  <PropertyGroup>
+    <ProjectType>ProgramLibrary</ProjectType>
+  </PropertyGroup>
+
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     	<DefineConstants>$(DefineConstants);SERIES4</DefineConstants>
     </PropertyGroup>
