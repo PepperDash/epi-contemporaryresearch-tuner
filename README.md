@@ -46,3 +46,83 @@ To verify that the packages installed correctly, open the plugin solution in you
     }
 }
 ```
+<!-- START Minimum Essentials Framework Versions -->
+### Minimum Essentials Framework Versions
+
+- 1.7.6
+<!-- END Minimum Essentials Framework Versions -->
+<!-- START Supported Types -->
+
+<!-- END Supported Types -->
+<!-- START Join Maps -->
+
+<!-- END Join Maps -->
+<!-- START Interfaces Implemented -->
+### Interfaces Implemented
+
+- ISetTopBoxControls
+<!-- END Interfaces Implemented -->
+<!-- START Base Classes -->
+### Base Classes
+
+- EssentialsBridgeableDevice
+- SetTopBoxControllerJoinMap
+<!-- END Base Classes -->
+<!-- START Public Methods -->
+### Public Methods
+
+- public void DvrList(bool pressRelease)
+- public void LoadPresets(string filePath)
+- public void Replay(bool pressRelease)
+- public void ChannelDown(bool pressRelease)
+- public void ChannelUp(bool pressRelease)
+- public void Exit(bool pressRelease)
+- public void Guide(bool pressRelease)
+- public void Info(bool pressRelease)
+- public void LastChannel(bool pressRelease)
+- public void PowerOn(bool pressRelease)
+- public void PowerOff(bool pressRelease)
+- public void PowerToggle(bool pressRelease)
+- public void Blue(bool pressRelease)
+- public void Green(bool pressRelease)
+- public void Red(bool pressRelease)
+- public void Yellow(bool pressRelease)
+- public void Down(bool pressRelease)
+- public void Left(bool pressRelease)
+- public void Menu(bool pressRelease)
+- public void Right(bool pressRelease)
+- public void Select(bool pressRelease)
+- public void Up(bool pressRelease)
+- public void Dash(bool pressRelease)
+- public void KeypadEnter(bool pressRelease)
+- public void Digit0(bool pressRelease)
+- public void Digit1(bool pressRelease)
+- public void Digit2(bool pressRelease)
+- public void Digit3(bool pressRelease)
+- public void Digit4(bool pressRelease)
+- public void Digit5(bool pressRelease)
+- public void Digit6(bool pressRelease)
+- public void Digit7(bool pressRelease)
+- public void Digit8(bool pressRelease)
+- public void Digit9(bool pressRelease)
+- public void KeypadAccessoryButton1(bool pressRelease)
+- public void KeypadAccessoryButton2(bool pressRelease)
+- public void ChapMinus(bool pressRelease)
+- public void ChapPlus(bool pressRelease)
+- public void FFwd(bool pressRelease)
+- public void Pause(bool pressRelease)
+- public void Play(bool pressRelease)
+- public void Record(bool pressRelease)
+- public void Rewind(bool pressRelease)
+- public void Stop(bool pressRelease)
+- public void Poll()
+<!-- END Public Methods -->
+<!-- START Bool Feedbacks -->
+
+<!-- END Bool Feedbacks -->
+<!-- START Int Feedbacks -->
+
+<!-- END Int Feedbacks -->
+<!-- START String Feedbacks -->
+
+<!-- END String Feedbacks -->
