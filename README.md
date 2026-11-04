@@ -1,19 +1,18 @@
 # epi-stb-contemporaryresearch
 plugin for entire range of contemporary research devices - only two-way feedback is for power.  Feel free to fork me!
 
-## Cloning Instructions
+## Requirements
 
-After forking this repository into your own GitHub space, you can create a new repository using this one as the template.  Then you must install the necessary dependencies as indicated below.
+- PepperDash Essentials **v3** (net8.0, 4-series processors only). This plugin builds against `PepperDash.Essentials.Core` `3.0.0-rc.20`.
+- For 3-series / Essentials 1.x, use the `main` branch releases.
 
-## Dependencies
+## Building
 
-The [Essentials](https://github.com/PepperDash/Essentials) libraries are required. They referenced via nuget. You must have nuget.exe installed and in the `PATH` environment variable to use the following command. Nuget.exe is available at [nuget.org](https://dist.nuget.org/win-x86-commandline/latest/nuget.exe).
+Dependencies are restored automatically by the SDK-style project via NuGet:
 
-### Installing Dependencies
+`dotnet build src/epi-stb-contemporaryresearch.csproj`
 
-To install dependencies once nuget.exe is installed, run the following command from the root directory of your repository:
-`nuget install .\packages.config -OutputDirectory .\packages -excludeVersion`.
-To verify that the packages installed correctly, open the plugin solution in your repo and make sure that all references are found, then try and build it.
+The `.cplz` and `.nupkg` are written to `output/`.
 
 ### Config Example
 
@@ -27,6 +26,7 @@ To verify that the packages installed correctly, open the plugin solution in you
     "properties": 
     {
         "unitId": "1",
+        "presetsList": "presets-list-name",  // optional: name of a presets list to load
         "control": 
         {
             "controlPortDevKey": "processor",
