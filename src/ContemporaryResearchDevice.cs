@@ -10,7 +10,6 @@ using epi_stb_contemporaryresearch.Bridge.JoinMap;
 using PepperDash.Essentials.Core.DeviceInfo;
 using PepperDash.Essentials.Core.DeviceTypeInterfaces;
 using PepperDash.Essentials.Core.Presets;
-using Serilog.Events;
 using PepperDash.Core.Logging;
 
 namespace epi_stb_contemporaryresearch
@@ -331,12 +330,12 @@ namespace epi_stb_contemporaryresearch
 
         public bool HasPresets
         {
-            get { throw new NotImplementedException(); }
+            get { return TvPresets != null; }
         }
 
         public PepperDash.Essentials.Core.Presets.DevicePresetsModel PresetsModel
         {
-            get { throw new NotImplementedException(); }
+            get { return TvPresets; }
         }
 
         public void Replay(bool pressRelease)
@@ -684,7 +683,7 @@ namespace epi_stb_contemporaryresearch
 
             foreach (var item in TvPresets.PresetsList)
             {
-                Debug.LogMessage(LogEventLevel.Information, this, "Preset Name = {0}", item.Name);
+                this.LogInformation("Preset Name = {presetName}", item.Name);
             }
         }
 
