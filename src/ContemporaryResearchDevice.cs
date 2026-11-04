@@ -11,73 +11,14 @@ using PepperDash.Essentials.Core.DeviceInfo;
 using PepperDash.Essentials.Core.DeviceTypeInterfaces;
 using PepperDash.Essentials.Core.Presets;
 using PepperDash.Core.Logging;
+using static PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner.ContemporaryResearchProtocol;
 
 namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
 {
     public class ContemporaryResearchDevice : EssentialsBridgeableDevice, ICommunicationMonitor, ISetTopBoxControls, IHasPowerControlWithFeedback, IDeviceInfoProvider, ITvPresetsProvider, IBasicVolumeWithFeedbackAdvanced, IRoutingSource
 
     {
-        #region constants
-        private const string Attention = ">";
 
-        private const string CmdPwrOn = "P1";
-
-        private const string CmdPwrOff = "P0";
-
-        private const string CmdChanUp = "TU";
-
-        private const string CmdChanDn = "TD";
-
-        private const string CmdChanLast = "TP";
-
-        private const string CmdKeyEmu = "KK";
-
-        private const string CmdPoll = "ST";
-
-        private const string CmdVolUp = "VU";
-
-        private const string CmdVolDn = "VD";
-
-        private const string CmdVolStop = "VV";
-
-        private const string CmdMuteOn = "VM";
-
-        private const string CmdMuteOff = "VX";
-
-        private const string CmdMuteToggle = "VT";
-
-        private const string CmdVolLevel = "VH";
-
-        private const string CmdPollAv = "SV";
-
-        private const string CmdPollIp = "IP";
-
-        private const string CmdPollInfo = "ID";
-
-        private const string ParamDigit0 = "=10";
-        private const string ParamDigit1 = "=11";
-        private const string ParamDigit2 = "=12";
-        private const string ParamDigit3 = "=13";
-        private const string ParamDigit4 = "=14";
-        private const string ParamDigit5 = "=15";
-        private const string ParamDigit6 = "=16";
-        private const string ParamDigit7 = "=17";
-        private const string ParamDigit8 = "=18";
-        private const string ParamDigit9 = "=19";
-        private const string ParamDash = "=99";
-        private const string ParamKpEnter = "=21";
-        private const string ParamMenu = "=29";
-        private const string ParamGuide = "=63";
-        private const string ParamInfo = "=100";
-        private const string ParamUp = "=108";
-        private const string ParamDn = "=109";
-        private const string ParamLt = "=107";
-        private const string ParamRt = "=106";
-        private const string ParamDpEnter = "=110";
-        private const string ParamExit = "=111";
-
-        
-        #endregion
 
         DeviceConfig _dc;
 
@@ -130,7 +71,7 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
             _props = JsonConvert.DeserializeObject<Properties>(dc.Properties.ToString());
             this.LogInformation("Made it to device constructor");
 
-            UnitId = _props.unitId;
+            UnitId = NormalizeUnitId(_props.unitId);
 
             PowerStatusFeedback = new BoolFeedback(() => PowerStatus);
             MuteFeedback = new BoolFeedback(() => _muted);
@@ -140,10 +81,13 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
 
             StringParse = new Dictionary<string, Action<string>>
             {
-                {string.Format("<{0}T", UnitId), ParseStatusResponse},
-                {string.Format("<{0}V", UnitId), ParseAudioResponse},
-                {string.Format("<{0}IP", UnitId), ParseNetworkResponse},
-                {string.Format("<{0}ID", UnitId), ParseDeviceInfoResponse},
+                {ResponsePrefix(UnitId, "T"), ParseStatusResponse},
+                {ResponsePrefix(UnitId, "V"), ParseAudioResponse},
+                {ResponsePrefix(UnitId, "IP"), ParseNetworkResponse},
+                // the manual shows the IP query answered with "$MAC=..." and "$IP=..." lines
+                {"$MAC=", ParseNetworkResponse},
+                {"$IP=", ParseNetworkResponse},
+                {ResponsePrefix(UnitId, "ID"), ParseDeviceInfoResponse},
             };
 			
             Communication = comm;
@@ -184,16 +128,12 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
 
         private string BuildCommand(string command, string parameter)
         {
-            var cmd = string.Format("{0}{1}{2}{3}\x0D", Attention, UnitId, command, parameter);
-            //Debug.Console(2, this, "TX : '{0}' ", cmd);
-            return cmd;
+            return ContemporaryResearchProtocol.BuildCommand(UnitId, command, parameter);
         }
 
         private string BuildCommand(string command)
         {
-			var cmd = string.Format("{0}{1}{2}\x0D", Attention, UnitId, command);
-			//Debug.Console(2, this, "TX : '{0}'", cmd);
-			return cmd;
+            return ContemporaryResearchProtocol.BuildCommand(UnitId, command);
         }
 
         void socket_ConnectionChange(object sender, GenericSocketStatusChageEventArgs e)
@@ -226,9 +166,10 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
 
         private void ParseStatusResponse(string data)
         {
-            // <1T U 032 ... ; the 4th character is the power state ('U' = on)
-            if (data.Length > 3)
-                PowerStatus = char.ToUpperInvariant(data[3]) == 'U';
+            bool powerOn;
+            string channel;
+            if (TryParseStatus(data, out powerOn, out channel))
+                PowerStatus = powerOn;
 
             // only ask for network/device info until we have it
             if (DeviceInfo == null || string.IsNullOrEmpty(DeviceInfo.IpAddress))
@@ -237,44 +178,29 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
 
         private void ParseAudioResponse(string data)
         {
-            // <1VU63Ux100 : [3] power, [4-5] emulated level 0-63, [6] mute (M = muted), [7] n/a, [8-10] actual level 0-100
-            if (data.Length < 11) return;
-            int level;
-            if (int.TryParse(data.Substring(8, 3), out level))
-            {
-                // Essentials volume feedback is 0-65535
-                _rawVolumeLevel = Math.Min(100, level);
-                _volumeLevel = _rawVolumeLevel * 65535 / 100;
-                VolumeLevelFeedback.FireUpdate();
-            }
-            _muted = char.ToUpperInvariant(data[6]) == 'M';
+            int percent;
+            bool muted;
+            if (!TryParseAudio(data, out percent, out muted)) return;
+
+            _rawVolumeLevel = percent;
+            _volumeLevel = PercentToEssentials(percent);
+            VolumeLevelFeedback.FireUpdate();
+            _muted = muted;
             MuteFeedback.FireUpdate();
         }
 
-        private static readonly Regex MacRegex = new Regex(@"MAC=([0-9A-Fa-f]{12})", RegexOptions.Compiled);
-        private static readonly Regex IpRegex = new Regex(@"\bIP=(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})", RegexOptions.Compiled);
-
         private void ParseNetworkResponse(string data)
         {
-            // Response example: $MAC=0014C8090001 / $IP=192.168.001.231S IG=... (S/D = static/DHCP)
-            var macMatch = MacRegex.Match(data);
-            var ipMatch = IpRegex.Match(data);
-            if (!macMatch.Success && !ipMatch.Success)
+            string ip, mac;
+            if (!TryParseNetwork(data, out ip, out mac))
             {
                 this.LogDebug("Unable to parse network response: {data}", data);
                 return;
             }
 
             if (DeviceInfo == null) DeviceInfo = new DeviceInfo();
-            if (macMatch.Success)
-                DeviceInfo.MacAddress = macMatch.Groups[1].Value;
-            if (ipMatch.Success)
-            {
-                // strip the zero padding (192.168.001.231 -> 192.168.1.231)
-                DeviceInfo.IpAddress = string.Format("{0}.{1}.{2}.{3}",
-                    int.Parse(ipMatch.Groups[1].Value), int.Parse(ipMatch.Groups[2].Value),
-                    int.Parse(ipMatch.Groups[3].Value), int.Parse(ipMatch.Groups[4].Value));
-            }
+            if (mac != null) DeviceInfo.MacAddress = mac;
+            if (ip != null) DeviceInfo.IpAddress = ip;
             OnDeviceInfoChanged();
 
             if (string.IsNullOrEmpty(DeviceInfo.FirmwareVersion))
@@ -283,18 +209,15 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
 
         private void ParseDeviceInfoResponse(string data)
         {
-            // strip the "<{unit}ID" prefix, remainder is "<model> <firmware>"
-            var prefix = string.Format("<{0}ID", UnitId);
-            var payload = data.Length > prefix.Length ? data.Substring(prefix.Length).Trim() : string.Empty;
-            var infoChunks = payload.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            if (infoChunks.Length == 0) return;
+            string model, firmware;
+            if (!TryParseInfo(data, UnitId, out model, out firmware)) return;
 
-            Model = infoChunks[0];
+            Model = model;
             ModelFeedback.FireUpdate();
             MakeFeedback.FireUpdate();
-            if (infoChunks.Length <= 1) return;
+            if (firmware == null) return;
             if (DeviceInfo == null) DeviceInfo = new DeviceInfo();
-            DeviceInfo.FirmwareVersion = infoChunks[1];
+            DeviceInfo.FirmwareVersion = firmware;
             OnDeviceInfoChanged();
         }
 
@@ -801,8 +724,7 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
         public void SetVolume(ushort level)
         {
             // Essentials levels are 0-65535, the tuner takes 0-100
-            var percent = level * 100 / 65535;
-            Communication.SendText(BuildCommand(CmdVolLevel, "=" + percent));
+            Communication.SendText(BuildCommand(CmdVolLevel, "=" + EssentialsToPercent(level)));
         }
 
         #endregion
