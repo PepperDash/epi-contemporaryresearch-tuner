@@ -4,7 +4,7 @@ using PepperDash.Core;
 using System;
 using System.Collections.Generic;
 
-namespace PepperDash.Essentials.Plugins.Stb.ContemporaryResearch
+namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
 {
     public class ContemporaryResearchFactory : EssentialsPluginDeviceFactory<ContemporaryResearchDevice>
     {

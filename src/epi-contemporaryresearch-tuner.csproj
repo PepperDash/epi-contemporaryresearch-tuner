@@ -4,9 +4,9 @@
 	</PropertyGroup>
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <RootNamespace>PepperDash.Essentials.Plugins.Stb.ContemporaryResearch</RootNamespace>
+        <RootNamespace>PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner</RootNamespace>
         <Deterministic>false</Deterministic>
-        <AssemblyTitle>EPI.Stb.ContemporaryResearch</AssemblyTitle>
+        <AssemblyTitle>EPI.ContemporaryResearch.Tuner</AssemblyTitle>
         <Company>PepperDash Technologies</Company>
         <Description>This software is a plugin designed to work as a part of PepperDash Essentials for Crestron control processors. This plugin allows for control of Contemporary Researcy tuners.</Description>
         <Copyright>Copyright 2024</Copyright>
@@ -15,7 +15,7 @@
         <InformationalVersion>$(Version)</InformationalVersion>
         <OutputPath>bin\$(Configuration)\</OutputPath>
         <Authors>PepperDash Technologies</Authors>
-        <PackageId>PepperDash.Essentials.Plugins.Stb.ContemporaryResearch</PackageId>
+        <PackageId>PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner</PackageId>
         <PackageProjectUrl>https://github.com/PepperDash/epi-contemporaryresearch-tuner</PackageProjectUrl>
         <PackageTags>crestron 4series contemporary research tuner</PackageTags>
     </PropertyGroup>
@@ -35,7 +35,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="epi-stb-contemporaryresearch.projectinfo" />
     </ItemGroup>
 
     <ItemGroup>

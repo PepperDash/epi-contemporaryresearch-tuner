@@ -1,6 +1,6 @@
 ﻿using PepperDash.Essentials.Core;
 
-namespace PepperDash.Essentials.Plugins.Stb.ContemporaryResearch
+namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
 {
     public class Properties
     {

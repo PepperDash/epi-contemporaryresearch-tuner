@@ -12,7 +12,7 @@ using PepperDash.Essentials.Core.DeviceTypeInterfaces;
 using PepperDash.Essentials.Core.Presets;
 using PepperDash.Core.Logging;
 
-namespace PepperDash.Essentials.Plugins.Stb.ContemporaryResearch
+namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
 {
     public class ContemporaryResearchDevice : EssentialsBridgeableDevice, ICommunicationMonitor, ISetTopBoxControls, IHasPowerControlWithFeedback, IDeviceInfoProvider, ITvPresetsProvider, IRoutingSource
 

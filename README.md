@@ -1,4 +1,4 @@
-# epi-stb-contemporaryresearch
+# epi-contemporaryresearch-tuner
 plugin for entire range of contemporary research devices - only two-way feedback is for power.  Feel free to fork me!
 
 ## Requirements
@@ -10,7 +10,7 @@ plugin for entire range of contemporary research devices - only two-way feedback
 
 Dependencies are restored automatically by the SDK-style project via NuGet:
 
-`dotnet build src/epi-stb-contemporaryresearch.csproj`
+`dotnet build src/epi-contemporaryresearch-tuner.csproj`
 
 The `.cplz` and `.nupkg` are written to `output/`.
 
