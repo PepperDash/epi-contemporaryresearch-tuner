@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using PepperDash.Core;
 using PepperDash.Essentials.Core;
@@ -11,6 +11,7 @@ using PepperDash.Essentials.Core.DeviceInfo;
 using PepperDash.Essentials.Core.DeviceTypeInterfaces;
 using PepperDash.Essentials.Core.Presets;
 using Serilog.Events;
+using PepperDash.Core.Logging;
 
 namespace epi_stb_contemporaryresearch
 {
@@ -104,7 +105,7 @@ namespace epi_stb_contemporaryresearch
             _dc = dc;
 
             _props = JsonConvert.DeserializeObject<Properties>(dc.Properties.ToString());
-            Debug.Console(0, this, "Made it to device constructor");
+            this.LogInformation("Made it to device constructor");
 
             UnitId = _props.unitId;
 
@@ -139,7 +140,7 @@ namespace epi_stb_contemporaryresearch
             OutputPorts = new RoutingPortCollection<RoutingOutputPort> { AnyOut };
 		}
 
-        public override bool CustomActivate()
+        protected override bool CustomActivate()
         {
 			// Essentials will handle the connect method to the device
 			Communication.Connect();
@@ -166,7 +167,7 @@ namespace epi_stb_contemporaryresearch
 
         void socket_ConnectionChange(object sender, GenericSocketStatusChageEventArgs e)
         {
-            Debug.Console(2, this, "Socket Status Change: {0}", e.Client.ClientStatus.ToString());
+            this.LogVerbose("Socket Status Change: {status}", e.Client.ClientStatus.ToString());
 
             if (e.Client.IsConnected)
             {
@@ -182,7 +183,7 @@ namespace epi_stb_contemporaryresearch
         {
             Action<string> newAction;
             var data = args.Text;
-            Debug.Console(2, this, "RX : '{0}'", data);
+            this.LogVerbose("RX : '{data}'", data);
             if (StringParse.TryGetValue(data.Substring(0, 4), out newAction))
             {
                 newAction.Invoke(data);
@@ -263,8 +264,8 @@ namespace epi_stb_contemporaryresearch
 					joinMap.SetCustomJoinData(joinMapSerialized);
 				}	
 				
-                Debug.Console(1, this, "Linking to Trilist '{0}'", trilist.ID.ToString("X"));
-				Debug.Console(0, this, "Linking to SetTopBox: {0}", Name);
+                this.LogDebug("Linking to Trilist '{trilistId}'", trilist.ID.ToString("X"));
+				this.LogInformation("Linking to SetTopBox: {name}", Name);
 
                 CommunicationMonitor.IsOnlineFeedback.LinkInputSig(trilist.BooleanInput[joinMap.IsOnline.JoinNumber]);
 	

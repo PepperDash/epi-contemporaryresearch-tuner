@@ -1,0 +1,11 @@
+bin/
+obj/
+.vs/
+output/
+packages/
+*.suo
+*.user
+*.cplz
+*.cpz
+*.clz
+*.nupkg
