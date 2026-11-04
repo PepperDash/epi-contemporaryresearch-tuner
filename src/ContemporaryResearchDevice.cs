@@ -14,7 +14,7 @@ using PepperDash.Core.Logging;
 
 namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
 {
-    public class ContemporaryResearchDevice : EssentialsBridgeableDevice, ICommunicationMonitor, ISetTopBoxControls, IHasPowerControlWithFeedback, IDeviceInfoProvider, ITvPresetsProvider, IRoutingSource
+    public class ContemporaryResearchDevice : EssentialsBridgeableDevice, ICommunicationMonitor, ISetTopBoxControls, IHasPowerControlWithFeedback, IDeviceInfoProvider, ITvPresetsProvider, IBasicVolumeWithFeedbackAdvanced, IRoutingSource
 
     {
         #region constants
@@ -33,6 +33,22 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
         private const string CmdKeyEmu = "KK";
 
         private const string CmdPoll = "ST";
+
+        private const string CmdVolUp = "VU";
+
+        private const string CmdVolDn = "VD";
+
+        private const string CmdVolStop = "VV";
+
+        private const string CmdMuteOn = "VM";
+
+        private const string CmdMuteOff = "VX";
+
+        private const string CmdMuteToggle = "VT";
+
+        private const string CmdVolLevel = "VH";
+
+        private const string CmdPollAv = "SV";
 
         private const string CmdPollIp = "IP";
 
@@ -85,6 +101,12 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
 
         public BoolFeedback PowerStatusFeedback { get; private set; }
 
+        public BoolFeedback MuteFeedback { get; private set; }
+        public IntFeedback VolumeLevelFeedback { get; private set; }
+        private bool _muted;
+        private int _volumeLevel;
+        private int _rawVolumeLevel;
+
         public BoolFeedback PowerIsOnFeedback { get { return PowerStatusFeedback; } }
         private bool _PowerStatus { get; set; }
         private bool PowerStatus
@@ -111,17 +133,25 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
             UnitId = _props.unitId;
 
             PowerStatusFeedback = new BoolFeedback(() => PowerStatus);
+            MuteFeedback = new BoolFeedback(() => _muted);
+            VolumeLevelFeedback = new IntFeedback(() => _volumeLevel);
             MakeFeedback = new StringFeedback(() => Make);
             ModelFeedback = new StringFeedback(() => Model);
 
             StringParse = new Dictionary<string, Action<string>>
             {
                 {string.Format("<{0}T", UnitId), ParseStatusResponse},
+                {string.Format("<{0}V", UnitId), ParseAudioResponse},
                 {string.Format("<{0}IP", UnitId), ParseNetworkResponse},
                 {string.Format("<{0}ID", UnitId), ParseDeviceInfoResponse},
             };
 			
             Communication = comm;
+
+            // Always build the presets model so the Mobile Control presets messenger never sees a null TvPresets;
+            // the list is empty unless "presetsList" is configured
+            LoadPresets(_props.presetsList ?? string.Empty);
+
             var socket = comm as ISocketStatus;
             if (socket != null)
                 socket.ConnectionChange += socket_ConnectionChange;
@@ -143,13 +173,13 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
 
         protected override bool CustomActivate()
         {
-			// Essentials will handle the connect method to the device
+			// base registers the Mobile Control messengers, so run it first in case connecting throws
+			var result = base.CustomActivate();
+
 			Communication.Connect();
-			// Essentials will handle starting the comms monitor
-            CommunicationMonitor.Start();
-			
-			return base.CustomActivate();
-			//return true;
+			CommunicationMonitor.Start();
+
+			return result;
         }
 
         private string BuildCommand(string command, string parameter)
@@ -203,6 +233,22 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
             // only ask for network/device info until we have it
             if (DeviceInfo == null || string.IsNullOrEmpty(DeviceInfo.IpAddress))
                 Communication.SendText(BuildCommand(CmdPollIp));
+        }
+
+        private void ParseAudioResponse(string data)
+        {
+            // <1VU63Ux100 : [3] power, [4-5] emulated level 0-63, [6] mute (M = muted), [7] n/a, [8-10] actual level 0-100
+            if (data.Length < 11) return;
+            int level;
+            if (int.TryParse(data.Substring(8, 3), out level))
+            {
+                // Essentials volume feedback is 0-65535
+                _rawVolumeLevel = Math.Min(100, level);
+                _volumeLevel = _rawVolumeLevel * 65535 / 100;
+                VolumeLevelFeedback.FireUpdate();
+            }
+            _muted = char.ToUpperInvariant(data[6]) == 'M';
+            MuteFeedback.FireUpdate();
         }
 
         private static readonly Regex MacRegex = new Regex(@"MAC=([0-9A-Fa-f]{12})", RegexOptions.Compiled);
@@ -328,7 +374,6 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
                 trilist.SetBoolSigAction(joinMap.LastChannel.JoinNumber, LastChannel);
                 trilist.SetBoolSigAction(joinMap.Guide.JoinNumber, Guide);
                 trilist.SetBoolSigAction(joinMap.Info.JoinNumber, Info);
-                trilist.SetBoolSigAction(joinMap.Exit.JoinNumber, Exit);
 
                 trilist.SetBoolSigAction(joinMap.Digit0.JoinNumber, Digit0);
                 trilist.SetBoolSigAction(joinMap.Digit1.JoinNumber, Digit1);
@@ -376,7 +421,7 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
 
         public bool HasPresets
         {
-            get { return TvPresets != null; }
+            get { return TvPresets != null && TvPresets.Count > 0; }
         }
 
         public PepperDash.Essentials.Core.Presets.DevicePresetsModel PresetsModel
@@ -518,7 +563,8 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
 
         public void Right(bool pressRelease)
         {
-            Communication.SendText(BuildCommand(CmdKeyEmu, ParamRt));
+            if (pressRelease)
+                Communication.SendText(BuildCommand(CmdKeyEmu, ParamRt));
         }
 
         public void Select(bool pressRelease)
@@ -627,34 +673,36 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
                 Communication.SendText(BuildCommand(CmdKeyEmu, ParamDigit9));
         }
 
+        // Mobile Control's numeric keypad messenger maps /numDash and /numEnter to the accessory buttons,
+        // so expose Dash and Enter through them
         public bool HasKeypadAccessoryButton1
         {
-            get { return false; }
+            get { return true; }
         }
 
         public bool HasKeypadAccessoryButton2
         {
-            get { return false; }
+            get { return true; }
         }
 
         public void KeypadAccessoryButton1(bool pressRelease)
         {
-            LogUnsupported("KeypadAccessoryButton1");
+            Dash(pressRelease);
         }
 
         public string KeypadAccessoryButton1Label
         {
-            get { return string.Empty; }
+            get { return "-"; }
         }
 
         public void KeypadAccessoryButton2(bool pressRelease)
         {
-            LogUnsupported("KeypadAccessoryButton2");
+            KeypadEnter(pressRelease);
         }
 
         public string KeypadAccessoryButton2Label
         {
-            get { return string.Empty; }
+            get { return "Enter"; }
         }
 
         #endregion
@@ -703,10 +751,67 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
 
         #endregion
 
+        #region IBasicVolumeWithFeedbackAdvanced Members
+
+        // Only used by the Mobile Control volume messenger; not exposed on the SIMPL join map
+        public int RawVolumeLevel
+        {
+            get { return _rawVolumeLevel; }
+        }
+
+        public eVolumeLevelUnits Units
+        {
+            get { return eVolumeLevelUnits.Percent; }
+        }
+
+        public int MaxVolumeLevel
+        {
+            get { return 100; }
+        }
+
+        #endregion
+
+        #region IBasicVolumeWithFeedback Members
+
+        public void VolumeUp(bool pressRelease)
+        {
+            Communication.SendText(BuildCommand(pressRelease ? CmdVolUp : CmdVolStop));
+        }
+
+        public void VolumeDown(bool pressRelease)
+        {
+            Communication.SendText(BuildCommand(pressRelease ? CmdVolDn : CmdVolStop));
+        }
+
+        public void MuteToggle()
+        {
+            Communication.SendText(BuildCommand(CmdMuteToggle));
+        }
+
+        public void MuteOn()
+        {
+            Communication.SendText(BuildCommand(CmdMuteOn));
+        }
+
+        public void MuteOff()
+        {
+            Communication.SendText(BuildCommand(CmdMuteOff));
+        }
+
+        public void SetVolume(ushort level)
+        {
+            // Essentials levels are 0-65535, the tuner takes 0-100
+            var percent = level * 100 / 65535;
+            Communication.SendText(BuildCommand(CmdVolLevel, "=" + percent));
+        }
+
+        #endregion
+
         #region Poll
         public void Poll()
         {
             Communication.SendText(BuildCommand(CmdPoll));
+            Communication.SendText(BuildCommand(CmdPollAv));
         }
 
         #endregion
@@ -726,9 +831,15 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
         public DevicePresetsModel TvPresets { get; private set; }
         public void LoadPresets(string filePath)
         {
-            TvPresets = new DevicePresetsModel(Key + "-presets", this, filePath);
-            
-            DeviceManager.AddDevice(TvPresets);
+            if (TvPresets != null)
+            {
+                TvPresets.SetFileName(filePath);
+            }
+            else
+            {
+                TvPresets = new DevicePresetsModel(Key + "-presets", this, filePath);
+                DeviceManager.AddDevice(TvPresets);
+            }
 
             foreach (var item in TvPresets.PresetsList)
             {

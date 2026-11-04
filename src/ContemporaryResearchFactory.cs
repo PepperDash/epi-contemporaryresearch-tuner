@@ -22,10 +22,6 @@ namespace PepperDash.Essentials.Plugins.ContemporaryResearch.Tuner
             var comms = CommFactory.CreateCommForDevice(dc);
             var device = new ContemporaryResearchDevice(dc.Key, dc.Name, comms, dc);
 
-            var listName = dc.Properties.Value<string>("presetsList");
-            if (listName != null)
-                device.LoadPresets(listName);
-
             return device;
         }
     }
