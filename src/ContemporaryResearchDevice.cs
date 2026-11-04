@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using PepperDash.Core;
 using PepperDash.Essentials.Core;
 using PepperDash.Essentials.Core.Bridges;
@@ -14,7 +15,7 @@ using PepperDash.Core.Logging;
 
 namespace epi_stb_contemporaryresearch
 {
-    public class ContemporaryResearchDevice : EssentialsBridgeableDevice, ICommunicationMonitor, ISetTopBoxControls, IDeviceInfoProvider, ITvPresetsProvider, IRoutingSource
+    public class ContemporaryResearchDevice : EssentialsBridgeableDevice, ICommunicationMonitor, ISetTopBoxControls, IHasPowerControlWithFeedback, IDeviceInfoProvider, ITvPresetsProvider, IRoutingSource
 
     {
         #region constants
@@ -83,7 +84,9 @@ namespace epi_stb_contemporaryresearch
         public const string Make = "Contemporary Research";
         public string Model { get; private set; }
 
-        BoolFeedback PowerStatusFeedback { get; set; }
+        public BoolFeedback PowerStatusFeedback { get; private set; }
+
+        public BoolFeedback PowerIsOnFeedback { get { return PowerStatusFeedback; } }
         private bool _PowerStatus { get; set; }
         private bool PowerStatus
         {
@@ -180,60 +183,73 @@ namespace epi_stb_contemporaryresearch
 
         void Port_LineReceived(object dev, GenericCommMethodReceiveTextArgs args)
         {
-            Action<string> newAction;
             var data = args.Text;
             this.LogVerbose("RX : '{data}'", data);
-            if (StringParse.TryGetValue(data.Substring(0, 4), out newAction))
+            if (string.IsNullOrEmpty(data)) return;
+
+            foreach (var entry in StringParse)
             {
-                newAction.Invoke(data);
+                if (!data.StartsWith(entry.Key, StringComparison.Ordinal)) continue;
+                entry.Value.Invoke(data);
                 return;
             }
-            if (StringParse.TryGetValue(data.Substring(0, 3), out newAction))
-                newAction.Invoke(data);
         }
 
         private void ParseStatusResponse(string data)
         {
-            var dataToLower = data.ToLower();
-            Communication.SendText(BuildCommand(CmdPollIp));
-            PowerStatus = dataToLower[3] == 'u';
+            // <1T U 032 ... ; the 4th character is the power state ('U' = on)
+            if (data.Length > 3)
+                PowerStatus = char.ToUpperInvariant(data[3]) == 'U';
+
+            // only ask for network/device info until we have it
+            if (DeviceInfo == null || string.IsNullOrEmpty(DeviceInfo.IpAddress))
+                Communication.SendText(BuildCommand(CmdPollIp));
         }
+
+        private static readonly Regex MacRegex = new Regex(@"MAC=([0-9A-Fa-f]{12})", RegexOptions.Compiled);
+        private static readonly Regex IpRegex = new Regex(@"\bIP=(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})", RegexOptions.Compiled);
 
         private void ParseNetworkResponse(string data)
         {
-            Communication.SendText(BuildCommand(CmdPollInfo));
-            var dataChunks = data.Split(' ');
-            var mac = string.Empty;
-            var ipa = string.Empty;
-            while (string.IsNullOrEmpty(mac) && string.IsNullOrEmpty(ipa))
+            // Response example: $MAC=0014C8090001 / $IP=192.168.001.231S IG=... (S/D = static/DHCP)
+            var macMatch = MacRegex.Match(data);
+            var ipMatch = IpRegex.Match(data);
+            if (!macMatch.Success && !ipMatch.Success)
             {
-                foreach (var item in dataChunks)
-                {
-                    if (item.ToUpper().Contains("MAC"))
-                    {
-                        mac = item.Substring(item.IndexOf('=') + 1);
-                    }
-                    if (!item.ToUpper().Contains("IP")) continue;
-                    var tempIpa = item.Substring(item.IndexOf('=') + 1);
-                    ipa = tempIpa.Remove(ipa.Length - 1, 1);
-                }
+                this.LogDebug("Unable to parse network response: {data}", data);
+                return;
             }
+
             if (DeviceInfo == null) DeviceInfo = new DeviceInfo();
-            DeviceInfo.MacAddress = string.IsNullOrEmpty(DeviceInfo.MacAddress) ? mac : DeviceInfo.MacAddress;
-            DeviceInfo.IpAddress = string.IsNullOrEmpty(DeviceInfo.IpAddress) ? ipa : DeviceInfo.IpAddress;
+            if (macMatch.Success)
+                DeviceInfo.MacAddress = macMatch.Groups[1].Value;
+            if (ipMatch.Success)
+            {
+                // strip the zero padding (192.168.001.231 -> 192.168.1.231)
+                DeviceInfo.IpAddress = string.Format("{0}.{1}.{2}.{3}",
+                    int.Parse(ipMatch.Groups[1].Value), int.Parse(ipMatch.Groups[2].Value),
+                    int.Parse(ipMatch.Groups[3].Value), int.Parse(ipMatch.Groups[4].Value));
+            }
             OnDeviceInfoChanged();
+
+            if (string.IsNullOrEmpty(DeviceInfo.FirmwareVersion))
+                Communication.SendText(BuildCommand(CmdPollInfo));
         }
 
         private void ParseDeviceInfoResponse(string data)
         {
-            var infoString = data.Remove(4, data.Length - 4);
-            var infoChunks = infoString.Split(' ');
+            // strip the "<{unit}ID" prefix, remainder is "<model> <firmware>"
+            var prefix = string.Format("<{0}ID", UnitId);
+            var payload = data.Length > prefix.Length ? data.Substring(prefix.Length).Trim() : string.Empty;
+            var infoChunks = payload.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (infoChunks.Length == 0) return;
+
             Model = infoChunks[0];
             ModelFeedback.FireUpdate();
             MakeFeedback.FireUpdate();
             if (infoChunks.Length <= 1) return;
             if (DeviceInfo == null) DeviceInfo = new DeviceInfo();
-            DeviceInfo.FirmwareVersion = string.IsNullOrEmpty(DeviceInfo.FirmwareVersion) ? infoChunks[1] : DeviceInfo.FirmwareVersion;
+            DeviceInfo.FirmwareVersion = infoChunks[1];
             OnDeviceInfoChanged();
         }
 
@@ -308,24 +324,29 @@ namespace epi_stb_contemporaryresearch
 
         #region ISetTopBoxControls Members
 
+        private void LogUnsupported(string command)
+        {
+            this.LogDebug("{command} is not supported by the Contemporary Research tuner", command);
+        }
+
         public void DvrList(bool pressRelease)
         {
-            throw new NotImplementedException();
+            LogUnsupported("DvrList");
         }
 
         public bool HasDpad
         {
-            get { throw new NotImplementedException(); }
+            get { return true; }
         }
 
         public bool HasDvr
         {
-            get { throw new NotImplementedException(); }
+            get { return false; }
         }
 
         public bool HasNumeric
         {
-            get { throw new NotImplementedException(); }
+            get { return true; }
         }
 
         public bool HasPresets
@@ -340,7 +361,7 @@ namespace epi_stb_contemporaryresearch
 
         public void Replay(bool pressRelease)
         {
-            throw new NotImplementedException();
+            LogUnsupported("Replay");
         }
 
         #endregion
@@ -390,56 +411,59 @@ namespace epi_stb_contemporaryresearch
 
         #endregion
 
+        public void PowerOn()
+        {
+            Communication.SendText(BuildCommand(CmdPwrOn));
+        }
+
+        public void PowerOff()
+        {
+            Communication.SendText(BuildCommand(CmdPwrOff));
+        }
+
+        public void PowerToggle()
+        {
+            if (PowerStatus)
+                PowerOff();
+            else
+                PowerOn();
+        }
+
         public void PowerOn(bool pressRelease)
         {
-            if (pressRelease)
-
-                Communication.SendText(BuildCommand(CmdPwrOn));
+            if (pressRelease) PowerOn();
         }
 
         public void PowerOff(bool pressRelease)
         {
-            if (pressRelease)
-
-                Communication.SendText(BuildCommand(CmdPwrOff));
+            if (pressRelease) PowerOff();
         }
 
         public void PowerToggle(bool pressRelease)
         {
-            if (pressRelease)
-            {
-                if (PowerStatus)
-                {
-                    Communication.SendText(BuildCommand(CmdPwrOff));
-                }
-                else
-                {
-                    Communication.SendText(BuildCommand(CmdPwrOff));
-                }
-            }
-
+            if (pressRelease) PowerToggle();
         }
 
         #region IColor Members
 
         public void Blue(bool pressRelease)
         {
-            throw new NotImplementedException();
+            LogUnsupported("Blue");
         }
 
         public void Green(bool pressRelease)
         {
-            throw new NotImplementedException();
+            LogUnsupported("Green");
         }
 
         public void Red(bool pressRelease)
         {
-            throw new NotImplementedException();
+            LogUnsupported("Red");
         }
 
         public void Yellow(bool pressRelease)
         {
-            throw new NotImplementedException();
+            LogUnsupported("Yellow");
         }
 
         #endregion
@@ -580,32 +604,32 @@ namespace epi_stb_contemporaryresearch
 
         public bool HasKeypadAccessoryButton1
         {
-            get { throw new NotImplementedException(); }
+            get { return false; }
         }
 
         public bool HasKeypadAccessoryButton2
         {
-            get { throw new NotImplementedException(); }
+            get { return false; }
         }
 
         public void KeypadAccessoryButton1(bool pressRelease)
         {
-            throw new NotImplementedException();
+            LogUnsupported("KeypadAccessoryButton1");
         }
 
         public string KeypadAccessoryButton1Label
         {
-            get { throw new NotImplementedException(); }
+            get { return string.Empty; }
         }
 
         public void KeypadAccessoryButton2(bool pressRelease)
         {
-            throw new NotImplementedException();
+            LogUnsupported("KeypadAccessoryButton2");
         }
 
         public string KeypadAccessoryButton2Label
         {
-            get { throw new NotImplementedException(); }
+            get { return string.Empty; }
         }
 
         #endregion
@@ -614,42 +638,42 @@ namespace epi_stb_contemporaryresearch
 
         public void ChapMinus(bool pressRelease)
         {
-            throw new NotImplementedException();
+            LogUnsupported("ChapMinus");
         }
 
         public void ChapPlus(bool pressRelease)
         {
-            throw new NotImplementedException();
+            LogUnsupported("ChapPlus");
         }
 
         public void FFwd(bool pressRelease)
         {
-            throw new NotImplementedException();
+            LogUnsupported("FFwd");
         }
 
         public void Pause(bool pressRelease)
         {
-            throw new NotImplementedException();
+            LogUnsupported("Pause");
         }
 
         public void Play(bool pressRelease)
         {
-            throw new NotImplementedException();
+            LogUnsupported("Play");
         }
 
         public void Record(bool pressRelease)
         {
-            throw new NotImplementedException();
+            LogUnsupported("Record");
         }
 
         public void Rewind(bool pressRelease)
         {
-            throw new NotImplementedException();
+            LogUnsupported("Rewind");
         }
 
         public void Stop(bool pressRelease)
         {
-            throw new NotImplementedException();
+            LogUnsupported("Stop");
         }
 
         #endregion
@@ -666,7 +690,7 @@ namespace epi_stb_contemporaryresearch
 
         public uint DisplayUiType
         {
-            get { throw new NotImplementedException(); }
+            get { return DisplayUiConstants.TypeDirecTv; }
         }
 
         #endregion
@@ -698,7 +722,9 @@ namespace epi_stb_contemporaryresearch
 
         public void UpdateDeviceInfo()
         {
-            throw new NotImplementedException();
+            // request network info (the response chain also requests model/firmware)
+            Communication.SendText(BuildCommand(CmdPollIp));
+            Communication.SendText(BuildCommand(CmdPollInfo));
         }
 
         #endregion
