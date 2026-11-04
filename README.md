@@ -46,3 +46,24 @@ The `.cplz` and `.nupkg` are written to `output/`.
     }
 }
 ```
+
+
+### Bridge Joins (added in v2)
+
+The join map extends the standard Essentials `SetTopBoxControllerJoinMap`. In addition to its joins, the plugin now drives:
+
+| Join | Type | Direction | Description |
+|------|------|-----------|-------------|
+| 1 | Digital | To SIMPL | Power on feedback |
+| 4 | Digital | To SIMPL | Has D-pad (true) |
+| 11 | Digital | To SIMPL | Has numeric keypad (true) |
+| 32 | Digital | To SIMPL | Has DVR (false) |
+| 49 | Digital | To SIMPL | Is online |
+| 50 | Digital | To SIMPL | Has presets (true when `presetsList` is configured) |
+| 2 | Serial | To SIMPL | Make |
+| 3 | Serial | To SIMPL | Model |
+| 4 | Serial | To SIMPL | IP address |
+| 5 | Serial | To SIMPL | MAC address |
+| 6 | Serial | To SIMPL | Firmware version |
+
+Joins are offset by the bridge `joinStart`. DVR, color, transport and accessory-key joins have no effect; the tuner does not support them.

@@ -286,6 +286,32 @@ namespace epi_stb_contemporaryresearch
 	
                 trilist.StringInput[joinMap.Name.JoinNumber].StringValue = Name;
 
+                PowerStatusFeedback.LinkInputSig(trilist.BooleanInput[joinMap.PowerIsOn.JoinNumber]);
+                MakeFeedback.LinkInputSig(trilist.StringInput[joinMap.Make.JoinNumber]);
+                ModelFeedback.LinkInputSig(trilist.StringInput[joinMap.Model.JoinNumber]);
+
+                // capability flags and device info are pushed on link, on device-info change and whenever the EISC comes online
+                Action updateStatic = () =>
+                {
+                    trilist.BooleanInput[joinMap.HasDpad.JoinNumber].BoolValue = HasDpad;
+                    trilist.BooleanInput[joinMap.HasNumeric.JoinNumber].BoolValue = HasNumeric;
+                    trilist.BooleanInput[joinMap.HasDvr.JoinNumber].BoolValue = HasDvr;
+                    trilist.BooleanInput[joinMap.HasPresets.JoinNumber].BoolValue = HasPresets;
+                    trilist.StringInput[joinMap.IpAddress.JoinNumber].StringValue = DeviceInfo != null ? DeviceInfo.IpAddress ?? string.Empty : string.Empty;
+                    trilist.StringInput[joinMap.MacAddress.JoinNumber].StringValue = DeviceInfo != null ? DeviceInfo.MacAddress ?? string.Empty : string.Empty;
+                    trilist.StringInput[joinMap.FirmwareVersion.JoinNumber].StringValue = DeviceInfo != null ? DeviceInfo.FirmwareVersion ?? string.Empty : string.Empty;
+                };
+                updateStatic();
+                DeviceInfoChanged += (d, a) => updateStatic();
+                trilist.OnlineStatusChange += (d, a) =>
+                {
+                    if (!a.DeviceOnLine) return;
+                    updateStatic();
+                    trilist.BooleanInput[joinMap.PowerIsOn.JoinNumber].BoolValue = PowerStatus;
+                    trilist.StringInput[joinMap.Make.JoinNumber].StringValue = Make;
+                    trilist.StringInput[joinMap.Model.JoinNumber].StringValue = Model ?? string.Empty;
+                };
+
                 trilist.SetBoolSigAction(joinMap.PowerOn.JoinNumber, PowerOn);
                 trilist.SetBoolSigAction(joinMap.PowerOff.JoinNumber, PowerOff);
                 trilist.SetBoolSigAction(joinMap.PowerToggle.JoinNumber, PowerToggle);
