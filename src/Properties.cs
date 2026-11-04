@@ -1,6 +1,6 @@
 ﻿using PepperDash.Essentials.Core;
 
-namespace epi_stb_contemporaryresearch
+namespace PepperDash.Essentials.Plugins.Stb.ContemporaryResearch
 {
     public class Properties
     {

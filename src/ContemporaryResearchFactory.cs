@@ -4,7 +4,7 @@ using PepperDash.Core;
 using System;
 using System.Collections.Generic;
 
-namespace epi_stb_contemporaryresearch
+namespace PepperDash.Essentials.Plugins.Stb.ContemporaryResearch
 {
     public class ContemporaryResearchFactory : EssentialsPluginDeviceFactory<ContemporaryResearchDevice>
     {

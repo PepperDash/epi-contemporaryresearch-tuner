@@ -1,7 +1,7 @@
 using PepperDash.Essentials.Core;
 using PepperDash.Essentials.Core.Bridges;
 
-namespace epi_stb_contemporaryresearch.Bridge.JoinMap
+namespace PepperDash.Essentials.Plugins.Stb.ContemporaryResearch
 {
     public class ContemporaryResearchJoinMap : SetTopBoxControllerJoinMap
     {

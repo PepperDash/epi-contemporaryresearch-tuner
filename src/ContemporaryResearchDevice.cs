@@ -7,13 +7,12 @@ using PepperDash.Essentials.Core.Bridges;
 using Newtonsoft.Json;
 using PepperDash.Essentials.Core.Config;
 using Crestron.SimplSharpPro.DeviceSupport;
-using epi_stb_contemporaryresearch.Bridge.JoinMap;
 using PepperDash.Essentials.Core.DeviceInfo;
 using PepperDash.Essentials.Core.DeviceTypeInterfaces;
 using PepperDash.Essentials.Core.Presets;
 using PepperDash.Core.Logging;
 
-namespace epi_stb_contemporaryresearch
+namespace PepperDash.Essentials.Plugins.Stb.ContemporaryResearch
 {
     public class ContemporaryResearchDevice : EssentialsBridgeableDevice, ICommunicationMonitor, ISetTopBoxControls, IHasPowerControlWithFeedback, IDeviceInfoProvider, ITvPresetsProvider, IRoutingSource
 
