@@ -1,11 +1,56 @@
-bin/
-obj/
-.vs/
+# Build output
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+[Ll]og/
+[Ll]ogs/
 output/
+publish/
+artifacts/
+*.[Cc]ache
+project.lock.json
+*.pdb
+*.dll
+
+# NuGet
 packages/
-*.suo
-*.user
+*.nupkg
+*.snupkg
+.nuget/
+*.nuget.props
+*.nuget.targets
+
+# Crestron build artifacts
 *.cplz
 *.cpz
 *.clz
-*.nupkg
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.rsuser
+*.vspscc
+*.vssscc
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+.idea/
+TestResults/
+[Tt]est[Rr]esult*/
+*.VisualState.xml
+*.log
+*.tmp
+*.bak
+*.orig
+
+# VS Code (workspace and settings are machine-local)
+.vscode/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
